@@ -24,6 +24,10 @@ export default function IntegrationsMarquee() {
         </div>
 
         <div className="overflow-hidden relative">
+
+          <div className="pointer-events-none absolute left-0 top-0 h-full w-24 z-10 bg-gradient-to-r from-gray-50 via-gray-50/80 to-transparent" />
+
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-24 z-10 bg-gradient-to-l from-gray-50 via-gray-50/80 to-transparent" />
           <div className="flex gap-16 animate-marquee whitespace-nowrap">
             {integrations.concat(integrations).map((integration, idx) => (
               <div
