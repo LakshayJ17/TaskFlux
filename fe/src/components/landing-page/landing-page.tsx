@@ -3,7 +3,6 @@
 import { useCallback, useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import {
   CheckCircle,
   Play,
@@ -37,15 +36,14 @@ import {
   Position,
 } from "@xyflow/react"
 import "@xyflow/react/dist/style.css"
-import Footer from "./Footer"
-import Header from "./Header"
+import Footer from "../layout/Footer"
+import Header from "../layout/Header"
 import IntegrationsMarquee from "./Integrations"
-import VideoDemo from "./VideoDemo"
+import VideoDemo from "../demo/VideoDemo"
 import CTASection from "./CTA"
 import FreeSection from "./FreeSection"
 import FeaturesCarousel from "./FeaturesCarousel"
 import { Rocket } from "@/components/ui/Rocket"
-import PricingSection from "./Pricing"
 
 // Custom Node Components
 const CustomTriggerNode = ({ data }) => {

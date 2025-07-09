@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, CreditCard, Gift, Key, Shield, Zap } from "lucide-react";
-import Header from "../components/Header";
+import Header from "../../components/layout/Header";
 
 export default function PricingSection() {
     return (
