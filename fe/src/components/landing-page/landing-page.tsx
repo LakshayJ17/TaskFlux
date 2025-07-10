@@ -44,6 +44,7 @@ import CTASection from "./CTA"
 import FreeSection from "./FreeSection"
 import FeaturesCarousel from "./FeaturesCarousel"
 import { Rocket } from "@/components/ui/Rocket"
+import { useRouter } from "next/navigation"
 
 // Custom Node Components
 const CustomTriggerNode = ({ data }) => {
@@ -197,6 +198,8 @@ const initialEdges: Edge[] = [
 
 // Hero Section Component
 function HeroSection({ nodes, edges, onNodesChange, onEdgesChange, onConnect }) {
+  const router = useRouter();
+
   const [isExecuting, setIsExecuting] = useState(false)
 
   // Simulate workflow execution
@@ -233,6 +236,7 @@ function HeroSection({ nodes, edges, onNodesChange, onEdgesChange, onConnect }) 
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in delay-400">
             <Button
+            onClick={() => router.push('/signup')}
               size="lg"
               className="bg-gradient-to-r from-emerald-500 to-violet-500 hover:from-emerald-600 hover:to-violet-600 p-6 text-lg transform transition-all duration-300 shadow-xl hover:shadow-2xl"
             >

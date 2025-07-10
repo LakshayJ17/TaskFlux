@@ -5,6 +5,8 @@ import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { toast } from "sonner";
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function SignupPage() {
   const [firstName, setFirstName] = useState("");
@@ -13,12 +15,14 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     if (password !== confirmPassword) {
-      toast.error("Passwords do not match")
+      toast.error("Passwords do not match");
       setError("Passwords do not match.");
       return;
     }
@@ -33,8 +37,7 @@ export default function SignupPage() {
         email,
         password,
       });
-      toast.success("Signup Success: " + JSON.stringify(res.data))
-
+      toast.success("Signup Success: " + JSON.stringify(res.data));
     } catch (error: any) {
       setError(error.response?.data?.detail || error.message);
     }
@@ -45,7 +48,7 @@ export default function SignupPage() {
       const res = await axios.post("/api/google-auth", {
         token: credentialResponse.credential,
       });
-      toast.success("Google Auth Success: " + JSON.stringify(res.data))
+      toast.success("Google Auth Success: " + JSON.stringify(res.data));
     } catch (error: any) {
       setError(error.response?.data?.detail || error.message);
     }
@@ -54,62 +57,116 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-100 via-white to-purple-100">
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
-        <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-purple-500 mb-2">
+        <h2 className="text-3xl text-center font-bold text-emerald-700 mb-2">
           Create your account
         </h2>
-        <p className="text-purple-500 mb-6">
-          Welcome! Please fill in the details to get started.
-        </p>
+        <div className="space-x-2 text-center">
+          <span className="text-emerald-500 mb-6">
+            Already have an account ?
+          </span>
+          <Link className="underline text-purple-500 hover:text-purple-700" href={'/signin'} replace>Sign In</Link>
+        </div>
+
         {error && <p className="text-red-500 mb-2">{error}</p>}
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <input
-            type="text"
-            placeholder="First Name"
-            value={firstName}
-            onChange={e => setFirstName(e.target.value)}
-            required
-            className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-400"
-          />
-          <input
-            type="text"
-            placeholder="Last Name"
-            value={secondName}
-            onChange={e => setSecondName(e.target.value)}
-            required
-            className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-400"
-          />
-          <input
-            type="email"
-            placeholder="Enter your email address"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            required
-            className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-400"
-          />
-          <input
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-            className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-400"
-          />
-          <input
-            type="password"
-            placeholder="Confirm your password"
-            value={confirmPassword}
-            onChange={e => setConfirmPassword(e.target.value)}
-            required
-            className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-400"
-          />
+        <form onSubmit={handleSubmit} className="space-y-3 mt-10">
+          <div className="flex space-x-3">
+            <div className="w-full">
+              <label htmlFor="firstName" className="block text-sm font-medium text-emerald-800 mb-1">
+                First Name
+              </label>
+              <input
+                id="firstName"
+                type="text"
+                placeholder="First Name"
+                value={firstName}
+                onChange={e => setFirstName(e.target.value)}
+                required
+                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
+              />
+            </div>
+            <div className="w-full">
+              <label htmlFor="lastName" className="block text-sm font-medium text-emerald-800 mb-1">
+                Last Name
+              </label>
+              <input
+                id="lastName"
+                type="text"
+                placeholder="Last Name"
+                value={secondName}
+                onChange={e => setSecondName(e.target.value)}
+                required
+                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-emerald-800 mb-1">
+              Email Address
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="Enter your email address"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+              className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            />
+          </div>
+          <div className="relative">
+            <label htmlFor="password" className="block text-sm font-medium text-emerald-800 mb-1">
+              Password
+            </label>
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter your password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+              className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 pr-10"
+            />
+            <span
+              className="absolute right-3 top-9 cursor-pointer"
+              onClick={() => setShowPassword((v) => !v)}
+              tabIndex={0}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? <EyeOff className="w-5 h-5 text-gray-500" /> : <Eye className="w-5 h-5 text-gray-500" />}
+            </span>
+          </div>
+          <div className="relative">
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-emerald-800 mb-1">
+              Confirm Password
+            </label>
+            <input
+              id="confirmPassword"
+              type={showConfirmPassword ? "text" : "password"}
+              placeholder="Confirm your password"
+              value={confirmPassword}
+              onChange={e => setConfirmPassword(e.target.value)}
+              required
+              className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 pr-10"
+            />
+            <span
+              className="absolute right-3 top-9 cursor-pointer"
+              onClick={() => setShowConfirmPassword((v) => !v)}
+              tabIndex={0}
+              aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+            >
+              {showConfirmPassword ? <EyeOff className="w-5 h-5 text-gray-500" /> : <Eye className="w-5 h-5 text-gray-500" />}
+            </span>
+          </div>
           <button
             type="submit"
-            className="w-full py-2 mt-2 rounded-lg font-semibold bg-gradient-to-r from-emerald-500 to-purple-500 text-white shadow-md hover:from-emerald-600 hover:to-purple-600 transition"
+            className="w-full py-2 mt-2 rounded-lg font-semibold bg-purple-500 text-white shadow-md hover:bg-purple-600 transition"
           >
             Sign Up
           </button>
         </form>
-        <Separator />
+        <Separator className="my-6 border-emerald-800" />
+
         <GoogleLogin
           onSuccess={handleGoogleSuccess}
           onError={() => setError("Google Login Failed")}

@@ -1,9 +1,14 @@
+"use client"
+
 import { Button } from "@/components/ui/button";
 import { Zap } from "lucide-react"
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 
 export default function Header() {
+    const router = useRouter();
+
     return (
         <header className="border-b border-gray-200 bg-white sticky top-0 z-50 px-6 py-6 min-w-full">
             <div className="container mx-auto flex items-center justify-between">
@@ -12,7 +17,7 @@ export default function Header() {
                         <Zap className="h-5 w-5 text-white" />
                     </div>
                     <Link href={'/'}
-                    className="text-3xl font-semibold bg-gradient-to-r from-emerald-600 to-violet-600 bg-clip-text text-transparent">
+                        className="text-3xl font-semibold bg-gradient-to-r from-emerald-600 to-violet-600 bg-clip-text text-transparent">
                         TaskFlux
                     </Link>
                 </div>
@@ -32,12 +37,12 @@ export default function Header() {
                     </Link>
                 </nav>
                 <div className="space-x-5">
-                    <Button variant="outline" size={"lg"} className="border-emerald-200 hover:bg-emerald-50 bg-transparent">
+                    <Button onClick={() => router.push('/signin')} variant="outline" size={"lg"} className="border-emerald-200 hover:bg-emerald-50 bg-transparent">
                         Sign In
                     </Button>
                     <Button
+                        onClick={() => router.push('/signup')}
                         size={"lg"}
-                        // className="bg-gradient-to-r from-emerald-500 to-violet-500 hover:from-emerald-600 hover:to-violet-600"
                         className="bg-violet-500 hover:bg-violet-600"
                     >
                         Get Started
