@@ -4,7 +4,6 @@ import { useCallback, useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
-  CheckCircle,
   Play,
   Users,
   Shield,
@@ -12,14 +11,10 @@ import {
   Clock,
   BarChart3,
   ArrowRight,
-  Gift,
   Mail,
   MessageSquare,
   Brain,
   Database,
-  Zap,
-  Key,
-  CreditCard,
 } from "lucide-react"
 import {
   ReactFlow,

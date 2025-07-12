@@ -4,15 +4,20 @@ import { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
+import AuthAnimationFlow from "@/components/AuthAnimation/AuthAnimationFlow";
+import { ReactFlowProvider } from "@xyflow/react";
 
 export default function SigninPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showAnimation, setShowAnimation] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,6 +28,11 @@ export default function SigninPage() {
         password,
       });
       toast.success("Successfully signed in");
+      setShowAnimation(true);
+      // Redirect to dashboard after animation completes (4 seconds)
+      setTimeout(() => {
+        router.push('/dashboard');
+      }, 5000);
     } catch (error: any) {
       const msg = error.response?.data?.detail || error.message || "Signin failed. Please try again.";
       setError(msg);
@@ -36,12 +46,27 @@ export default function SigninPage() {
         token: credentialResponse.credential,
       });
       toast.success("Signed in with Google successfully!");
+      setShowAnimation(true);
+      // Redirect to dashboard after animation completes (4 seconds)
+      setTimeout(() => {
+        router.push('/dashboard');
+      }, 5000);
     } catch (error: any) {
       const msg = error.response?.data?.detail || error.message || "Google Login Failed. Please try again.";
       setError(msg);
       toast.error(msg);
     }
   };
+
+  if (showAnimation) {
+    return (
+      <div className="fixed inset-0 bg-gradient-to-br from-emerald-100 via-white to-purple-100 z-50">
+        <ReactFlowProvider>
+          <AuthAnimationFlow />
+        </ReactFlowProvider>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-100 via-white to-purple-100">
