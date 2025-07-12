@@ -10,7 +10,7 @@ import { Eye, EyeOff } from "lucide-react";
 
 export default function SignupPage() {
   const [firstName, setFirstName] = useState("");
-  const [secondName, setSecondName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -22,35 +22,44 @@ export default function SignupPage() {
     e.preventDefault();
     setError("");
     if (password !== confirmPassword) {
-      toast.error("Passwords do not match");
-      setError("Passwords do not match.");
+      const msg = "Passwords do not match.";
+      setError(msg);
+      toast.error(msg);
       return;
     }
-    if (!firstName.trim() || !secondName.trim()) {
-      setError("Please enter your first and last name.");
+    if (!firstName.trim() || !lastName.trim()) {
+      const msg = "Please enter your first and last name.";
+      setError(msg);
+      toast.error(msg);
       return;
     }
     try {
-      const res = await axios.post("/api/signup", {
+      const res = await axios.post("http://127.0.0.1:8000/api/v1/auth/signup", {
         firstName,
-        secondName,
+        lastName,
         email,
         password,
       });
-      toast.success("Signup Success: " + JSON.stringify(res.data));
+      toast.success(`Welcome, ${firstName}! Your account was created successfully`);
+      // Optionally, redirect or clear form here
     } catch (error: any) {
-      setError(error.response?.data?.detail || error.message);
+      const msg = error.response?.data?.detail || error.message || "Signup failed. Please try again.";
+      setError(msg);
+      toast.error(msg);
     }
   };
 
   const handleGoogleSuccess = async (credentialResponse: any) => {
     try {
-      const res = await axios.post("/api/google-auth", {
+      const res = await axios.post("http://127.0.0.1:8000/api/v1/auth/google-auth", {
         token: credentialResponse.credential,
       });
-      toast.success("Google Auth Success: " + JSON.stringify(res.data));
+      toast.success("Signed up with Google successfully!");
+      // Optionally, redirect or handle user info here
     } catch (error: any) {
-      setError(error.response?.data?.detail || error.message);
+      const msg = error.response?.data?.detail || error.message || "Google signup failed. Please try again.";
+      setError(msg);
+      toast.error(msg);
     }
   };
 
@@ -92,8 +101,8 @@ export default function SignupPage() {
                 id="lastName"
                 type="text"
                 placeholder="Last Name"
-                value={secondName}
-                onChange={e => setSecondName(e.target.value)}
+                value={lastName}
+                onChange={e => setLastName(e.target.value)}
                 required
                 className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
               />
@@ -169,9 +178,9 @@ export default function SignupPage() {
 
         <GoogleLogin
           onSuccess={handleGoogleSuccess}
-          onError={() => setError("Google Login Failed")}
+          onError={() => setError("Google Signup Failed")}
         />
       </div>
     </div>
   );
-} 
+}

@@ -33,7 +33,7 @@ export default function RootLayout({
       >
         <GoogleOAuthProvider clientId={clientId}>
           {children}
-          <Toaster />
+          <Toaster position="top-right" />
         </GoogleOAuthProvider>
       </body>
     </html>

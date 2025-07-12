@@ -1,5 +1,6 @@
 from pydantic import BaseModel, EmailStr, Field, validator
 from datetime import datetime
+from typing import Optional
 
 
 class UserCreate(BaseModel):
@@ -17,6 +18,9 @@ class UserResponse(BaseModel):
     id: str
     firstName: str
     lastName: str
-    email : EmailStr
+    email: EmailStr
     created_at: datetime
     is_active: bool = True
+    google_picture: Optional[str] = None
+    google_id: Optional[str] = None
+    auth_provider: Optional[str] = None

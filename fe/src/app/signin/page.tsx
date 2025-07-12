@@ -6,6 +6,7 @@ import axios from "axios";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { Eye, EyeOff } from "lucide-react";
+import { toast } from "sonner";
 
 export default function SigninPage() {
   const [email, setEmail] = useState("");
@@ -17,24 +18,28 @@ export default function SigninPage() {
     e.preventDefault();
     setError("");
     try {
-      const res = await axios.post("/api/signin", {
+      const res = await axios.post("http://127.0.0.1:8000/api/v1/auth/signin", {
         email,
         password,
       });
-      alert("Signin Success: " + JSON.stringify(res.data));
+      toast.success("Successfully signed in");
     } catch (error: any) {
-      setError(error.response?.data?.detail || error.message);
+      const msg = error.response?.data?.detail || error.message || "Signin failed. Please try again.";
+      setError(msg);
+      toast.error(msg);
     }
   };
 
   const handleGoogleSuccess = async (credentialResponse: any) => {
     try {
-      const res = await axios.post("/api/google-auth", {
+      const res = await axios.post("http://127.0.0.1:8000/api/v1/auth/google-auth", {
         token: credentialResponse.credential,
       });
-      alert("Google Auth Success: " + JSON.stringify(res.data));
+      toast.success("Signed in with Google successfully!");
     } catch (error: any) {
-      setError(error.response?.data?.detail || error.message);
+      const msg = error.response?.data?.detail || error.message || "Google Login Failed. Please try again.";
+      setError(msg);
+      toast.error(msg);
     }
   };
 

@@ -9,8 +9,9 @@ from dotenv import load_dotenv
 from bson import ObjectId
 # from app.db import mongo_db
 from app.db import get_mongo_db
-
 from app.schemas import UserCreate, UserLogin, UserResponse
+from google.oauth2 import id_token
+from google.auth.transport import requests as google_requests
 
 load_dotenv()
 
@@ -225,3 +226,62 @@ async def refresh_token(current_user: dict = Depends(get_current_user)):
         "token_type": "bearer",
         "expires_in": ACCESS_TOKEN_EXPIRE_MINUTES * 60
     }
+
+# Handling google signin/signup
+@router.post("/google-auth")
+async def google_auth(payload: dict):
+    token = payload.get("token")
+    if not token:
+        raise HTTPException(status_code=400, detail="No token provided")
+
+    try:
+        # Verify the token with Google
+        idinfo = id_token.verify_oauth2_token(token, google_requests.Request())
+        email = idinfo["email"].lower()
+        first_name = idinfo.get("given_name", "")
+        last_name = idinfo.get("family_name", "")
+        picture = idinfo.get("picture", "")
+
+        db = get_mongo_db()
+        user = await db.users.find_one({"email": email})
+
+        if not user:
+            now = datetime.now(UTC)
+            user_doc = {
+                "firstName": first_name,
+                "lastName": last_name,
+                "email": email,
+                "created_at": now,
+                "updated_at": now,
+                "is_active": True,
+                "google_picture": picture,
+                "google_id": idinfo.get("sub"),
+                "auth_provider": "google"
+            }
+            result = await db.users.insert_one(user_doc)
+            user_id = result.inserted_id
+        else:
+            user_id = user["_id"]
+
+        # Create your own JWT
+        access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        access_token = create_access_token(
+            data={"sub": str(user_id)},
+            expires_delta=access_token_expires
+        )
+
+        return {
+            "message": "Google authentication successful",
+            "access_token": access_token,
+            "token_type": "bearer",
+            "user": {
+                "id": str(user_id),
+                "firstName": first_name or (user and user["firstName"]),
+                "lastName": last_name or (user and user["lastName"]),
+                "email": email,
+                "google_picture": picture or (user and user.get("google_picture"))
+            }
+        }
+    except Exception as e:
+        print("Google Auth Error:", e)
+        raise HTTPException(status_code=400, detail="Invalid Google token")
