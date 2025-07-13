@@ -8,8 +8,7 @@ import { useRouter } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
-import AuthAnimationFlow from "@/components/AuthAnimation/AuthAnimationFlow";
-import { ReactFlowProvider } from "@xyflow/react";
+import ProcedureAnimation from "@/components/AuthAnimation/procedure-animation";
 
 export default function SigninPage() {
   const [email, setEmail] = useState("");
@@ -60,10 +59,8 @@ export default function SigninPage() {
 
   if (showAnimation) {
     return (
-      <div className="fixed inset-0 bg-gradient-to-br from-emerald-100 via-white to-purple-100 z-50">
-        <ReactFlowProvider>
-          <AuthAnimationFlow />
-        </ReactFlowProvider>
+      <div className="bg-gradient-to-br from-emerald-100 via-white to-purple-100">
+        <ProcedureAnimation />
       </div>
     );
   }

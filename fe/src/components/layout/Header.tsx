@@ -37,7 +37,7 @@ export default function Header() {
                     </Link>
                 </nav>
                 <div className="space-x-5">
-                    <Button onClick={() => router.push('/signin')} variant="outline" size={"lg"} className="border-emerald-200 hover:bg-emerald-50 bg-transparent">
+                    <Button onClick={() => router.push('/signin')} variant="outline" size={"lg"} className="border-emerald-200 hover:bg-emerald-50 hover:border-emerald-700 bg-transparent">
                         Sign In
                     </Button>
                     <Button
