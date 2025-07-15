@@ -1,9 +1,10 @@
 from fastapi import FastAPI, Body
 from fastapi.middleware.cors import CORSMiddleware
 from auth import router as auth_router
+from contextlib import asynccontextmanager
 from db import connect_to_mongo, close_mongo_connection
 # from .workflow import Workflow, execute_workflow
-from execute import execute_workflow
+# from execute import execute_workflow
 
 
 app = FastAPI()
@@ -19,13 +20,13 @@ app.add_middleware(
 
 app.include_router(auth_router, prefix = "/api/v1")
 
-@app.on_event("startup")
-async def startup_db():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     await connect_to_mongo()
-
-@app.on_event("shutdown")
-async def shutdown_db():
+    yield
     await close_mongo_connection()
+
+app = FastAPI(lifespan=lifespan)
 
 # @app.post("/workflows/")
 # def save_workflow(workflow: Workflow):
@@ -44,14 +45,6 @@ async def shutdown_db():
 #     result = execute_workflow(workflow, input_data)
 #     return {"result": result}
 
-
-@app.post("/workflows/execute/")
-def run_workflow(payload: dict = Body(...)):
-    workflow_json = payload["workflow"]
-    initial_state = payload["initial_state"]
-    result = execute_workflow(workflow_json, initial_state)
-
-    return {"result" : result}
 
 
 @app.get("/")

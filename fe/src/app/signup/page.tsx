@@ -44,7 +44,10 @@ export default function SignupPage() {
         email,
         password,
       });
+      localStorage.setItem("token", res.data.access_token);
+
       toast.success(`Welcome, ${firstName}! Your account was created successfully`);
+
       setShowAnimation(true);
       // Redirect to dashboard after animation completes (4 seconds)
       setTimeout(() => {
@@ -62,6 +65,9 @@ export default function SignupPage() {
       const res = await axios.post("http://127.0.0.1:8000/api/v1/auth/google-auth", {
         token: credentialResponse.credential,
       });
+
+      localStorage.setItem("token", res.data.access_token);
+      
       toast.success("Signed up with Google successfully!");
       setShowAnimation(true);
       // Redirect to dashboard after animation completes (4 seconds)

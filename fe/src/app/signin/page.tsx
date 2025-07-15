@@ -5,10 +5,11 @@ import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Separator } from "@/components/ui/separator";
+
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import ProcedureAnimation from "@/components/AuthAnimation/procedure-animation";
+import { Separator } from "@/components/ui/separator";
 
 export default function SigninPage() {
   const [email, setEmail] = useState("");
@@ -26,6 +27,8 @@ export default function SigninPage() {
         email,
         password,
       });
+      localStorage.setItem("token", res.data.access_token);
+      
       toast.success("Successfully signed in");
       setShowAnimation(true);
       // Redirect to dashboard after animation completes (4 seconds)
@@ -44,6 +47,8 @@ export default function SigninPage() {
       const res = await axios.post("http://127.0.0.1:8000/api/v1/auth/google-auth", {
         token: credentialResponse.credential,
       });
+      localStorage.setItem("token", res.data.access_token);
+
       toast.success("Signed in with Google successfully!");
       setShowAnimation(true);
       // Redirect to dashboard after animation completes (4 seconds)

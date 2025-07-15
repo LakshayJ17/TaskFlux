@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from bson import ObjectId
 # from app.db import mongo_db
 from app.db import get_mongo_db
-from app.schemas import UserCreate, UserLogin, UserResponse
+from be.app.schemas.UserSchemas import UserCreate, UserLogin, UserResponse
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
 
@@ -59,7 +59,7 @@ def verify_token(token: str) -> Optional[dict]:
     except jwt.InvalidTokenError:
         return None
 
-# Get current authenticated user from JWT token
+# Get current authenticated user from JWT token - to be used before every enpoint after signin/signup
 async def get_current_user(credentials : HTTPAuthorizationCredentials = Depends(security)) -> dict:
     token = credentials.credentials
     payload = verify_token(token)
@@ -105,11 +105,12 @@ async def signup(user_data : UserCreate):
 
     if db is None:
         raise HTTPException(status_code=500, detail="Database not initialized")
+    
     now = datetime.now(UTC)
-    email = user_data.email.lower()
+    user_email = user_data.email.lower()
 
     # Check if user already exists
-    existing_user = await db.users.find_one({"email" : email})
+    existing_user = await db.users.find_one({"email" : user_email})
     if existing_user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -122,7 +123,7 @@ async def signup(user_data : UserCreate):
     user_doc = {
         "firstName" : user_data.firstName,
         "lastName": user_data.lastName,
-        "email" : email,
+        "email" : user_email,
         "hashed_password": hashed_password,
         "created_at": now,
         "updated_at" : now,
@@ -147,7 +148,7 @@ async def signup(user_data : UserCreate):
             "id": str(result.inserted_id),
             "firstName": user_data.firstName,
             "lastName": user_data.lastName,
-            "email": email  # use the lowercased version
+            "email": user_email  # use the lowercased version
         }
     }
 
@@ -209,7 +210,8 @@ async def get_current_user_info(current_user: dict = Depends(get_current_user)):
         "lastName": current_user["lastName"],
         "email": current_user["email"],
         "created_at": current_user["created_at"],
-        "is_active": current_user.get("is_active", True)
+        "is_active": current_user.get("is_active", True),
+        "profile_pic"  : current_user["google_picture"]
     }
 
 # Refresh Jwt token

@@ -1,7 +1,6 @@
-from pydantic import BaseModel, EmailStr, Field, validator
+from pydantic import BaseModel, EmailStr, Field
 from datetime import datetime
 from typing import Optional
-
 
 class UserCreate(BaseModel):
     firstName: str = Field(..., min_length=2, max_length=50)
@@ -24,3 +23,5 @@ class UserResponse(BaseModel):
     google_picture: Optional[str] = None
     google_id: Optional[str] = None
     auth_provider: Optional[str] = None
+
+
