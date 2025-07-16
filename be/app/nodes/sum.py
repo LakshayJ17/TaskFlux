@@ -1,6 +1,4 @@
 def sum_node(state):
-    a = state["a"]
-    b = state["b"]
-
-    state["result"] = a + b
-    return state
+    num1 = state["num1"]
+    num2 = state["num2"]
+    return {"result": num1 + num2}

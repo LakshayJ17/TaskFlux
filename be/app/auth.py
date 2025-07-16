@@ -8,8 +8,8 @@ import os
 from dotenv import load_dotenv
 from bson import ObjectId
 # from app.db import mongo_db
-from app.db import get_mongo_db
-from be.app.schemas.UserSchemas import UserCreate, UserLogin, UserResponse
+from .db import get_mongo_db
+from .schemas.UserSchemas import UserCreate, UserLogin, UserResponse
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
 
@@ -211,7 +211,7 @@ async def get_current_user_info(current_user: dict = Depends(get_current_user)):
         "email": current_user["email"],
         "created_at": current_user["created_at"],
         "is_active": current_user.get("is_active", True),
-        "profile_pic"  : current_user["google_picture"]
+        "google_picture"  : current_user.get("google_picture")
     }
 
 # Refresh Jwt token
