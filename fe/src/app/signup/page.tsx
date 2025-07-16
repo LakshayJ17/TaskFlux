@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
 import ProcedureAnimation from "@/components/AuthAnimation/procedure-animation";
+import { useRedirectIfLoggedIn } from "@/hooks/useRedirectIfLoggedIn";
 
 export default function SignupPage() {
   const [firstName, setFirstName] = useState("");
@@ -22,6 +23,9 @@ export default function SignupPage() {
   const [showAnimation, setShowAnimation] = useState(false);
   const router = useRouter();
 
+
+  useRedirectIfLoggedIn()
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -67,7 +71,7 @@ export default function SignupPage() {
       });
 
       localStorage.setItem("token", res.data.access_token);
-      
+
       toast.success("Signed up with Google successfully!");
       setShowAnimation(true);
       // Redirect to dashboard after animation completes (4 seconds)

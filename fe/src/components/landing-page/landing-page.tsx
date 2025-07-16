@@ -4,7 +4,6 @@ import { useCallback, useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
-  Play,
   Users,
   Shield,
   Layers,
@@ -40,6 +39,7 @@ import FreeSection from "./FreeSection"
 import FeaturesCarousel from "./FeaturesCarousel"
 import { Rocket } from "@/components/ui/Rocket"
 import { useRouter } from "next/navigation"
+import { useRedirectIfLoggedIn } from "@/hooks/useRedirectIfLoggedIn"
 
 // Custom Node Components
 const CustomTriggerNode = ({ data }) => {
@@ -300,6 +300,8 @@ export default function WorkflowLanding() {
   const [email, setEmail] = useState("")
   const [currentSlide, setCurrentSlide] = useState(0)
 
+  useRedirectIfLoggedIn();
+  
   const onConnect = useCallback((params: Connection) => setEdges((eds) => addEdge(params, eds)), [setEdges])
 
   const features = [

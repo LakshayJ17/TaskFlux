@@ -5,11 +5,11 @@ import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import ProcedureAnimation from "@/components/AuthAnimation/procedure-animation";
 import { Separator } from "@/components/ui/separator";
+import { useRedirectIfLoggedIn } from "@/hooks/useRedirectIfLoggedIn";
 
 export default function SigninPage() {
   const [email, setEmail] = useState("");
@@ -19,6 +19,8 @@ export default function SigninPage() {
   const [showAnimation, setShowAnimation] = useState(false);
   const router = useRouter();
 
+  useRedirectIfLoggedIn();
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -28,7 +30,7 @@ export default function SigninPage() {
         password,
       });
       localStorage.setItem("token", res.data.access_token);
-      
+
       toast.success("Successfully signed in");
       setShowAnimation(true);
       // Redirect to dashboard after animation completes (4 seconds)

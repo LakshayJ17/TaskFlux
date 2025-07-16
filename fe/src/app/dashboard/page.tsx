@@ -4,6 +4,6 @@ import WorkFlowCanvas from "@/components/Workflow/WorkFlowCanvas";
 export default function Dashboard(){
     return <div>
         <Header />
-        <WorkFlowCanvas />
+        {/* <WorkFlowCanvas /> */}
     </div>
 }
