@@ -4,22 +4,17 @@ import { Button } from "@/components/ui/button";
 import { LogOutIcon, User2Icon, Zap } from "lucide-react"
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { getCurrentUser } from "@/utils/getUser";
 import { useEffect, useRef, useState } from "react";
 import { logoutCurrentUser } from "@/utils/logoutUser";
 import { Separator } from "../ui/separator";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 export default function Header() {
+    const { user } = useCurrentUser();
     const router = useRouter();
-    const [user, setUser] = useState<any>(null);
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const dropdownRef = useRef<HTMLDivElement>(null)
 
-    useEffect(() => {
-        getCurrentUser().then(user => {
-            setUser(user);
-        })
-    }, [])
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -61,7 +56,7 @@ export default function Header() {
                             <Link href="/#integrations" className="text-gray-600 hover:text-emerald-600 transition-colors">
                                 Integrations
                             </Link>
-                            <Link href="#demo" className="text-gray-600 hover:text-emerald-600 transition-colors">
+                            <Link href="/#demo" className="text-gray-600 hover:text-emerald-600 transition-colors">
                                 Demo
                             </Link>
                             <Link href="/pricing" className="text-gray-600 hover:text-emerald-600 transition-colors">

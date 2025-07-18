@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import ProcedureAnimation from "@/components/AuthAnimation/procedure-animation";
 import { Separator } from "@/components/ui/separator";
 import { useRedirectIfLoggedIn } from "@/hooks/useRedirectIfLoggedIn";
+import { Button } from "@/components/ui/stateful-button";
 
 export default function SigninPage() {
   const [email, setEmail] = useState("");
@@ -20,7 +21,7 @@ export default function SigninPage() {
   const router = useRouter();
 
   useRedirectIfLoggedIn();
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -56,7 +57,7 @@ export default function SigninPage() {
       // Redirect to dashboard after animation completes (4 seconds)
       setTimeout(() => {
         router.push('/dashboard');
-      }, 5000);
+      }, 8000);
     } catch (error: any) {
       const msg = error.response?.data?.detail || error.message || "Google Login Failed. Please try again.";
       setError(msg);
@@ -123,12 +124,7 @@ export default function SigninPage() {
               {showPassword ? <EyeOff className="w-5 h-5 text-gray-500" /> : <Eye className="w-5 h-5 text-gray-500" />}
             </span>
           </div>
-          <button
-            type="submit"
-            className="w-full text-white py-2 mt-2 rounded-lg font-semibold bg-purple-500 hover:bg-purple-700 transition"
-          >
-            Sign In
-          </button>
+          <Button className="w-full bg-purple-600 hover:bg-purple-700 hover:ring-purple-700" type="submit">Sign In</Button>
         </form>
         <Separator className="my-6 border-emerald-800" />
         <GoogleLogin

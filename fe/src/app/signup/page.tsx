@@ -10,6 +10,7 @@ import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
 import ProcedureAnimation from "@/components/AuthAnimation/procedure-animation";
 import { useRedirectIfLoggedIn } from "@/hooks/useRedirectIfLoggedIn";
+import { Button } from "@/components/ui/stateful-button";
 
 export default function SignupPage() {
   const [firstName, setFirstName] = useState("");
@@ -25,7 +26,7 @@ export default function SignupPage() {
 
 
   useRedirectIfLoggedIn()
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -197,12 +198,7 @@ export default function SignupPage() {
               {showConfirmPassword ? <EyeOff className="w-5 h-5 text-gray-500" /> : <Eye className="w-5 h-5 text-gray-500" />}
             </span>
           </div>
-          <button
-            type="submit"
-            className="w-full py-2 mt-2 rounded-lg font-semibold bg-purple-500 text-white shadow-md hover:bg-purple-600 transition"
-          >
-            Sign Up
-          </button>
+          <Button className="w-full bg-purple-600 hover:bg-purple-700 hover:ring-purple-700" type="submit">Sign Up</Button>
         </form>
         <Separator className="my-6 border-emerald-800" />
 

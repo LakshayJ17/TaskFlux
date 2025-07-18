@@ -6,9 +6,9 @@ import Header from "../../components/layout/Header";
 
 export default function PricingSection() {
     return (
-        <>
+        <div className="animate-fade-in delay-200">
             <Header />
-            <section className="flex justify-center items-center flex-col py-10 px-6 bg-gradient-to-br from-gray-50 to-emerald-50">
+            <section className="flex justify-center items-center flex-col py-10 px-6 bg-gradient-to-br from-gray-50 to-emerald-50 animate-fade-in delay-200">
 
                 <div className="container mx-auto max-w-6xl">
                     <div className="text-center mb-16 animate-fade-in-up">
@@ -172,6 +172,6 @@ export default function PricingSection() {
                     </div>
                 </div>
             </section>
-        </>
+        </div>
     )
 }

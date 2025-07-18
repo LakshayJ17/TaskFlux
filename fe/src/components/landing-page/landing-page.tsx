@@ -217,9 +217,9 @@ function HeroSection({ nodes, edges, onNodesChange, onEdgesChange, onConnect }) 
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#10b98120_1px,transparent_1px),linear-gradient(to_bottom,#10b98120_1px,transparent_1px)] bg-[size:24px_24px]"></div>
       </div>
 
-      <div className="container mx-auto max-w-7xl relative z-10">
+      <div className="container mx-auto max-w-7xl relative z-10 ">
         <div className="text-center space-y-8 mb-16 animate-fade-in-up">
-          <h1 className="text-4xl md:text-7xl font-bold text-gray-900 leading-tight animate-slide-up">
+          <h1 className="text-4xl md:text-7xl font-bold text-gray-900 leading-tight animate-fade-in delay-400">
             Automate Your Workflows
             <br />
             <span className="bg-gradient-to-r from-emerald-500 to-violet-500 bg-clip-text text-transparent animate-gradient">
