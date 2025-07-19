@@ -14,7 +14,6 @@ import { MoreVertical, PlusCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { logoutCurrentUser } from "@/utils/logoutUser";
 import { useRouter } from "next/navigation";
-import { Input } from "@/components/ui/input";
 
 export default function Dashboard() {
     const { user, loading, error } = useAuthIfNotLoggedIn();
