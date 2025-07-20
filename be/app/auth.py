@@ -127,7 +127,8 @@ async def signup(user_data : UserCreate):
         "hashed_password": hashed_password,
         "created_at": now,
         "updated_at" : now,
-        "is_active" : True
+        "is_active" : True,
+        "is_premium" : False
     }
 
     result = await db.users.insert_one(user_doc)
@@ -211,6 +212,7 @@ async def get_current_user_info(current_user: dict = Depends(get_current_user)):
         "email": current_user["email"],
         "created_at": current_user["created_at"],
         "is_active": current_user.get("is_active", True),
+        "is_premium" : current_user.get("is_premium", False),
         "google_picture"  : current_user.get("google_picture")
     }
 
@@ -256,6 +258,7 @@ async def google_auth(payload: dict):
                 "created_at": now,
                 "updated_at": now,
                 "is_active": True,
+                "is_premium" : False,
                 "google_picture": picture,
                 "google_id": idinfo.get("sub"),
                 "auth_provider": "google"

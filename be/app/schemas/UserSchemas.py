@@ -20,6 +20,7 @@ class UserResponse(BaseModel):
     email: EmailStr
     created_at: datetime
     is_active: bool = True
+    is_premium : bool = False
     google_picture: Optional[str] = None
     google_id: Optional[str] = None
     auth_provider: Optional[str] = None
