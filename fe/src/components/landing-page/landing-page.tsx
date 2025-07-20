@@ -218,15 +218,15 @@ function HeroSection({ nodes, edges, onNodesChange, onEdgesChange, onConnect }) 
       </div>
 
       <div className="container mx-auto max-w-7xl relative z-10 ">
-        <div className="text-center space-y-8 mb-16 animate-fade-in-up">
-          <h1 className="text-4xl md:text-7xl font-bold text-gray-900 leading-tight animate-fade-in delay-400">
+        <div className="text-center space-y-8 mb-16 animate-fade-in-up ">
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight animate-fade-in delay-400">
             Automate Your Workflows
             <br />
             <span className="bg-gradient-to-r from-emerald-500 to-violet-500 bg-clip-text text-transparent animate-gradient">
               Without Limits
             </span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed animate-fade-in delay-200">
+          <p className="text-lg md:text-xl text-gray-600 max-w-5xl mx-auto leading-relaxed animate-fade-in delay-200">
             Build powerful automation workflows with our visual editor. Connect your favorite apps, automate repetitive tasks, and focus on what matters most.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in delay-400">

@@ -11,6 +11,7 @@ import ProcedureAnimation from "@/components/AuthAnimation/procedure-animation";
 import { Separator } from "@/components/ui/separator";
 import { useRedirectIfLoggedIn } from "@/hooks/useRedirectIfLoggedIn";
 import { Button } from "@/components/ui/stateful-button";
+import GLBViewer from "@/components/GLBViewer";
 
 export default function SigninPage() {
   const [email, setEmail] = useState("");
@@ -74,63 +75,70 @@ export default function SigninPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-100 via-white to-purple-100">
-      <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
-        <h2 className="text-3xl font-bold text-emerald-700 text-center mb-2">
-          Welcome Back !
-        </h2>
-        <div className="space-x-2 text-center">
-          <span className="text-emerald-500 text-center mb-6">
-            New to TaskFlux ?
-          </span>
-          <Link className="underline text-purple-500 hover:text-purple-700" href={'/signup'} replace>Create a new account</Link>
-        </div>
-
-        {error && <p className="text-red-500 mb-2">{error}</p>}
-        <form onSubmit={handleSubmit} className="mt-10 space-y-3">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-emerald-800 mb-1">
-              Email Address
-            </label>
-            <input
-              id="email"
-              type="email"
-              placeholder="Enter your email address"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              required
-              className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
-            />
-          </div>
-          <div className="relative">
-            <label htmlFor="password" className="block text-sm font-medium text-emerald-800 mb-1">
-              Password
-            </label>
-            <input
-              id="password"
-              type={showPassword ? "text" : "password"}
-              placeholder="Enter your password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required
-              className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 pr-10"
-            />
-            <span
-              className="absolute right-3 top-9 cursor-pointer"
-              onClick={() => setShowPassword((v) => !v)}
-              tabIndex={0}
-              aria-label={showPassword ? "Hide password" : "Show password"}
-            >
-              {showPassword ? <EyeOff className="w-5 h-5 text-gray-500" /> : <Eye className="w-5 h-5 text-gray-500" />}
+    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-gradient-to-br from-emerald-100 via-white to-purple-100">
+      <div className="flex w-full md:basis-1/2 justify-center md:mb-0 px-4 md:px-0 mt-10 md:mt-0">
+        <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
+          <h2 className="text-3xl font-bold text-emerald-700 text-center mb-2">
+            Welcome Back !
+          </h2>
+          <div className="space-x-2 text-center">
+            <span className="text-emerald-500 text-center mb-6">
+              New to TaskFlux ?
             </span>
+            <Link className="underline text-purple-500 hover:text-purple-700" href={'/signup'} replace>Create a new account</Link>
           </div>
-          <Button className="w-full bg-purple-600 hover:bg-purple-700 hover:ring-purple-700" type="submit">Sign In</Button>
-        </form>
-        <Separator className="my-6 border-emerald-800" />
-        <GoogleLogin
-          onSuccess={handleGoogleSuccess}
-          onError={() => setError("Google Login Failed")}
-        />
+
+          {error && <p className="text-red-500 mb-2">{error}</p>}
+          <form onSubmit={handleSubmit} className="mt-10 space-y-3">
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-emerald-800 mb-1">
+                Email Address
+              </label>
+              <input
+                id="email"
+                type="email"
+                placeholder="Enter your email address"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
+                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
+              />
+            </div>
+            <div className="relative">
+              <label htmlFor="password" className="block text-sm font-medium text-emerald-800 mb-1">
+                Password
+              </label>
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required
+                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 pr-10"
+              />
+              <span
+                className="absolute right-3 top-9 cursor-pointer"
+                onClick={() => setShowPassword((v) => !v)}
+                tabIndex={0}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? <EyeOff className="w-5 h-5 text-gray-500" /> : <Eye className="w-5 h-5 text-gray-500" />}
+              </span>
+            </div>
+            <Button className="w-full bg-purple-600 hover:bg-purple-700 hover:ring-purple-700" type="submit">Sign In</Button>
+          </form>
+          <Separator className="my-6 border-emerald-800" />
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={() => setError("Google Login Failed")}
+          />
+        </div>
+      </div>
+      <div className="w-full md:basis-1/2 flex justify-center items-center">
+        <div className="w-full flex justify-center items-center" style={{ maxWidth: 400, minHeight: 300 }}>
+          <GLBViewer url="/tasky.glb" />
+        </div>
       </div>
     </div>
   );

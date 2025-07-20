@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { IconMenu2, IconX } from "@tabler/icons-react";
+import { usePathname } from "next/navigation";
 
 interface Links {
   label: string;
@@ -163,6 +164,8 @@ export const SidebarLink = ({
   className?: string;
 }) => {
   const { open, animate } = useSidebar();
+  const pathname = usePathname();
+  const isActive = pathname === link.href;
 
   const baseLinkClasses =
     "flex items-center justify-start gap-2 group/sidebar py-2 w-full text-left rounded transition-colors duration-200 hover:bg-emerald-200 dark:hover:bg-emerald-800";
@@ -173,7 +176,11 @@ export const SidebarLink = ({
       <button
         type="button"
         onClick={link.onClick}
-        className={cn(baseLinkClasses, className)}
+        className={cn(
+          baseLinkClasses,
+          isActive && "bg-emerald-300 font-bold dark:bg-emerald-800",
+          className
+        )}
         {...props}
       >
         {link.icon}
@@ -194,7 +201,11 @@ export const SidebarLink = ({
   return (
     <a
       href={link.href}
-      className={cn(baseLinkClasses, className)}
+      className={cn(
+        baseLinkClasses,
+        isActive && "bg-emerald-300 font-bold dark:bg-emerald-800",
+        className
+      )}
       {...props}
     >
       {link.icon}
