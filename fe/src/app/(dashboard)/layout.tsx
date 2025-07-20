@@ -12,6 +12,7 @@ import {
 import { cn } from "@/lib/utils";
 import { logoutCurrentUser } from "@/utils/logoutUser";
 import { useRouter } from "next/navigation";
+import { LoaderFour } from "@/components/ui/loader";
 
 
 export default function UserLayout({ children }: { children: React.ReactNode }) {
@@ -19,7 +20,11 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
     const [open, setOpen] = useState(false);
     const router = useRouter();
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return (
+      <div className="flex items-center justify-center min-h-[200px] w-full">
+        <LoaderFour />
+      </div>
+    );
     if (error) return <div>Error loading user</div>;
     if (!user) return null;
 
@@ -63,7 +68,8 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
                     {/* Top: Navigation Links + Logout */}
                     <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
                         <div>
-                            {user.is_premium ? <div className="font-extrabold text-2xl">TF+</div> : <div className="font-extrabold text-2xl">TF</div>}
+                            {/* Todo - use logos */}
+                            {user.is_premium ? <img className="h-8 w-10 border shadow rounded-sm" src={"./tf-plus-logo-new.png"}></img> : <img className="h-8 w-10 border shadow rounded-sm" src={"./tf-logo-new.png"}></img>}
                         </div>
                         <div className="mt-8 flex flex-col gap-4">
                             {links.map((link, idx) => (
@@ -109,7 +115,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
                 </SidebarBody>
             </Sidebar>
 
-            <div className="flex-1 px-8 mt-10">
+            <div className="flex-1">
                 {children}
             </div>
         </div>

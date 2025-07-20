@@ -1,8 +1,7 @@
 "use client"
 
-import Header from "@/components/layout/Header"
 import { Button } from "@/components/ui/button";
-import { LoaderThree } from "@/components/ui/loader";
+import { LoaderFour } from "@/components/ui/loader";
 import { useAuthIfNotLoggedIn } from "@/hooks/useAuthIfNotLoggedIn"
 import { IconLink } from "@tabler/icons-react";
 import { Calendar, Edit, GitFork, Link2, Mail, Play, Plus, Settings } from "lucide-react";
@@ -45,12 +44,16 @@ const items: Integration[] = [
 export default function ProfilePage() {
     const { user, loading, error } = useAuthIfNotLoggedIn();
 
-    if (loading) return <LoaderThree />;
+    if (loading) return (
+        <div className="flex items-center justify-center min-h-[200px] w-full">
+            <LoaderFour />
+        </div>
+    );
     if (error) return <div>Error loading user</div>;
     if (!user) return null;
 
     return (
-        <div className="animate-fade-in delay-400 bg-gray-200/10 max-h-[100vh]">
+        <div className="animate-fade-in delay-400 bg-gray-200/10 max-h-[100vh] px-10 mt-10">
             <div className="flex gap-8">
                 <div className="basis-1/4 space-y-5">
                     <div className="border bg-white rounded-xl flex flex-col items-center justify-center p-8 shadow">

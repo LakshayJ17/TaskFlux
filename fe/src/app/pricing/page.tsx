@@ -1,10 +1,16 @@
+"use client"
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, CreditCard, Gift, Key, Shield, Zap } from "lucide-react";
 import Header from "../../components/layout/Header";
+import { useRouter } from "next/navigation";
+
 
 export default function PricingSection() {
+    const router = useRouter();
+
     return (
         <div className="animate-fade-in delay-200">
             <Header />
@@ -38,7 +44,7 @@ export default function PricingSection() {
                                 <ul className="space-y-3 mb-8">
                                     <li className="flex items-center">
                                         <CheckCircle className="h-5 w-5 text-emerald-500 mr-3" />
-                                        <span>Unlimited workflows</span>
+                                        <span>5 Free workflows</span>
                                     </li>
                                     <li className="flex items-center">
                                         <CheckCircle className="h-5 w-5 text-emerald-500 mr-3" />
@@ -53,7 +59,7 @@ export default function PricingSection() {
                                         <span>Community support</span>
                                     </li>
                                 </ul>
-                                <Button className="w-full bg-emerald-500 hover:bg-emerald-600">Get Started Free</Button>
+                                <Button onClick={() => router.push('/signup')} className="w-full cursor-hover bg-emerald-500 hover:bg-emerald-600">Get Started Free</Button>
                             </CardContent>
                         </Card>
 
@@ -66,15 +72,15 @@ export default function PricingSection() {
                             <CardContent className="p-8">
                                 <div className="text-center mb-6">
                                     <Zap className="h-12 w-12 text-violet-500 mx-auto mb-4" />
-                                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Pay-per-Use</h3>
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Plus</h3>
                                     <p className="text-gray-600">We provide the AI power</p>
                                 </div>
                                 <div className="text-center mb-6">
                                     <div className="flex justify-center items-center-safe space-x-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-indian-rupee-icon lucide-indian-rupee"><path d="M6 3h12" /><path d="M6 8h12" /><path d="m6 13 8.5 8" /><path d="M6 13h3" /><path d="M9 13c6.667 0 6.667-10 0-10" /></svg>
-                                        <div className="text-4xl font-bold text-gray-900 mb-2">20</div>
+                                        <div className="text-4xl font-bold text-gray-900 mb-2">10000</div>
                                     </div>
-                                    <div className="text-gray-600">per AI operation</div>
+                                    <div className="text-gray-600">Validity : Lifetime</div>
                                 </div>
                                 <ul className="space-y-3 mb-8">
                                     <li className="flex items-center">
@@ -83,18 +89,18 @@ export default function PricingSection() {
                                     </li>
                                     <li className="flex items-center">
                                         <CheckCircle className="h-5 w-5 text-violet-500 mr-3" />
-                                        <span>Premium OpenAI models</span>
+                                        <span>Unlimited Workflows</span>
                                     </li>
                                     <li className="flex items-center">
                                         <CheckCircle className="h-5 w-5 text-violet-500 mr-3" />
-                                        <span>No API key management</span>
+                                        <span>AI Workflow Maker</span>
                                     </li>
                                     <li className="flex items-center">
                                         <CheckCircle className="h-5 w-5 text-violet-500 mr-3" />
                                         <span>Priority support</span>
                                     </li>
                                 </ul>
-                                <Button className="w-full bg-violet-500 hover:bg-violet-600">Start with Credits</Button>
+                                <Button className="w-full cursor-hover bg-violet-500 hover:bg-violet-600">Upgrade to Plus</Button>
                             </CardContent>
                         </Card>
 
@@ -137,7 +143,7 @@ export default function PricingSection() {
                     </div>
 
                     {/* API Key Options */}
-                    <div className="mt-16 bg-white rounded-2xl shadow-lg p-8 animate-fade-in delay-800">
+                    {/* <div className="mt-16 bg-white rounded-2xl shadow-lg p-8 animate-fade-in delay-800">
                         <div className="text-center mb-8">
                             <Key className="h-12 w-12 text-emerald-500 mx-auto mb-4" />
                             <h3 className="text-2xl font-bold text-gray-900 mb-2">AI Integration Options</h3>
@@ -169,7 +175,19 @@ export default function PricingSection() {
                                 <Badge className="bg-violet-100 text-violet-700">₹ 20 per operation</Badge>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
+
+                    
+                    {/* <Accordion type="single" collapsible>
+                        <AccordionItem value="item-1">
+                            <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                            <AccordionContent>
+                                Yes. It adheres to the WAI-ARIA design pattern.
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion> */}
+
+
                 </div>
             </section>
         </div>

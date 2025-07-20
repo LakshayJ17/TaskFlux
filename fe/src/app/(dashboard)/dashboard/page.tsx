@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-import { LoaderThree } from "@/components/ui/loader";
+import { LoaderFour } from "@/components/ui/loader";
 import { useAuthIfNotLoggedIn } from "@/hooks/useAuthIfNotLoggedIn";
 import { MoreVertical, PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -10,12 +10,16 @@ export default function Dashboard() {
     const { user, loading, error } = useAuthIfNotLoggedIn();
     const router = useRouter();
 
-    if (loading) return <LoaderThree />;
+    if (loading) return (
+        <div className="flex items-center justify-center min-h-[200px] w-full">
+            <LoaderFour />
+        </div>
+    );
     if (error) return <div>Error loading user</div>;
     if (!user) return null;
 
     return (
-        <div className="animate-fade-in delay-400">
+        <div className="animate-fade-in delay-400 px-10 mt-10">
             <div className="text-4xl font-bold mb-8">
                 Hello, {user.firstName}! Welcome to Your Dashboard
             </div>

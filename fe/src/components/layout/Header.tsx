@@ -33,18 +33,15 @@ export default function Header() {
     }, [dropdownOpen])
 
     return (
-        <header className="border-b border-gray-200 bg-white sticky top-0 z-50 px-6 py-5 min-w-full">
+        <header className="h-20 border-b border-gray-200 bg-white sticky top-0 z-50 px-6 py-5 min-w-full">
             <div className="container mx-auto flex items-center justify-between">
-                {/* Left: Logo */}
-                <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-violet-500 rounded-lg flex items-center justify-center">
-                        <Zap className="h-5 w-5 text-white" />
-                    </div>
-                    <Link href={'/'}
-                        className="text-xl sm:text-3xl font-semibold bg-gradient-to-r from-emerald-600 to-violet-600 bg-clip-text text-transparent">
+                <Link href={'/'} className="flex items-center">
+                    <img src="./tf-logo-new.png" className="h-10 w-16 mt-1" alt="TF-logo" />
+                    <div
+                        className="text-xl sm:text-3xl font-bold bg-gradient-to-r from-emerald-600 to-violet-600 bg-clip-text text-transparent">
                         TaskFlux
-                    </Link>
-                </div>
+                    </div>
+                </Link>
 
 
                 {!user && (
