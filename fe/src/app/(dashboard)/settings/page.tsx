@@ -1,4 +1,6 @@
 "use client"
+import AppearanceSettings from "@/components/settings-components/appearance-settings";
+import ProfileSettings from "@/components/settings-components/profile-settings";
 import { LoaderFour } from "@/components/ui/loader";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useAuthIfNotLoggedIn } from "@/hooks/useAuthIfNotLoggedIn";
@@ -40,6 +42,7 @@ export default function SettingsPage() {
                 <TabsContent value="profile">
                     {/* Profile content goes here */}
                     <div className="p-6 bg-white rounded-xl shadow">Profile Information</div>
+                    <ProfileSettings />
                 </TabsContent>
                 <TabsContent value="notifications">
                     {/* Notifications content goes here */}
@@ -51,7 +54,9 @@ export default function SettingsPage() {
                 </TabsContent>
                 <TabsContent value="appearance">
                     {/* Appearance content goes here */}
-                    <div className="p-6 bg-white rounded-xl shadow">Appearance Settings</div>
+                    {/* <div className="p-6 bg-white rounded-xl shadow">Appearance Settings</div> */}
+
+                    <AppearanceSettings />
                 </TabsContent>
                 <TabsContent value="billing">
                     {/* Billing content goes here */}

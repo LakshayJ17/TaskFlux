@@ -8,7 +8,7 @@ export default function Footer() {
                 <div className="grid md:grid-cols-4 gap-8">
                     <div className="space-y-4">
                         <div className="flex items-center space-x-2">
-                            <img className="h-10 w-10 rounded-sm" src="./tf-logo-new.png" alt="" />
+                            <img className="h-10 w-10 rounded-sm" src="./taskflux-logo.png" alt="" />
                             <span className="text-xl font-semibold">TaskFlux</span>
                         </div>
                         <p className="text-gray-400">The free and open-source workflow automation platform.</p>

@@ -210,30 +210,31 @@ function HeroSection({ nodes, edges, onNodesChange, onEdgesChange, onConnect }) 
   return (
     <section
       id="hero-section"
-      className="relative py-20 px-6 bg-gradient-to-br from-emerald-50 via-white to-violet-50 overflow-hidden"
+      className="relative pt-25 px-6 bg-gradient-to-br from-emerald-50 to-violet-50 overflow-hidden dark:bg-gradient-to-r dark:from-emerald-950 via-black dark:to-purple-950/50 animate-gradient"
+
     >
-      {/* Grid Background */}
+      
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#10b98120_1px,transparent_1px),linear-gradient(to_bottom,#10b98120_1px,transparent_1px)] bg-[size:24px_24px]"></div>
       </div>
 
-      <div className="container mx-auto max-w-7xl relative z-10 ">
-        <div className="text-center space-y-8 mb-16 animate-fade-in-up ">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight animate-fade-in delay-400">
+      <div className="container mx-auto max-w-7xl relative z-10 animate-fade-in delay-400">
+        <div className="text-center space-y-8 mb-16">
+          <h1 className="text-4xl md:text-6xl font-bold text-emerald-600 leading-tight dark:text-emerald-500">
             Automate Your Workflows
             <br />
-            <span className="bg-gradient-to-r from-emerald-500 to-violet-500 bg-clip-text text-transparent animate-gradient">
+            <span className="bg-gradient-to-r from-emerald-600 to-violet-500 bg-clip-text text-transparent animate-gradient">
               Without Limits
             </span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-600 max-w-5xl mx-auto leading-relaxed animate-fade-in delay-200">
+          <p className="text-lg md:text-xl text-gray-700 dark:text-white max-w-5xl mx-auto leading-relaxed">
             Build powerful automation workflows with our visual editor. Connect your favorite apps, automate repetitive tasks, and focus on what matters most.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in delay-400">
             <Button
             onClick={() => router.push('/signup')}
               size="lg"
-              className="bg-gradient-to-r from-emerald-500 to-violet-500 hover:from-emerald-600 hover:to-violet-600 p-6 text-lg transform transition-all duration-300 shadow-xl hover:shadow-2xl"
+              className="bg-violet-500 hover:bg-violet-600 text-white  p-6 text-lg transform transition-all duration-300 shadow-xl hover:shadow-2xl"
             >
               <Rocket />
               Start Building Free
@@ -242,7 +243,7 @@ function HeroSection({ nodes, edges, onNodesChange, onEdgesChange, onConnect }) 
             <Button
               variant="outline"
               size="lg"
-              className="px-8 py-4 text-lg bg-white/80 backdrop-blur-sm border-emerald-200 hover:bg-emerald-50 hover:border-emerald-600 transform transition-all duration-300 p-6"
+              className="px-8 py-4 text-lg backdrop-blur-sm border-emerald-800 hover:bg-emerald-50 hover:border-emerald-600 transform transition-all duration-300 p-6 text-black hover:text-black dark:text-white"
             >
               Watch Live Demo
               <ArrowRight className="ml-2 h-6 w-6" />
@@ -368,7 +369,7 @@ export default function WorkflowLanding() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-[#202C39]">
       <Header />
       <HeroSection
         nodes={nodes}

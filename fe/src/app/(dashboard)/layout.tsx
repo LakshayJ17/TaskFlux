@@ -59,17 +59,15 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
     return (
         <div
             className={cn(
-                "flex w-full flex-1 flex-col overflow-hidden rounded-md border border-neutral-200 md:flex-row dark:border-neutral-700 dark:bg-neutral-800",
+                "flex w-full flex-1 flex-col overflow-hidden border border-neutral-200 md:flex-row dark:border-neutral-700 dark:bg-neutral-800",
                 "h-screen",
             )}
         >
             <Sidebar open={open} setOpen={setOpen}>
                 <SidebarBody className="flex flex-col h-full justify-between gap-10">
-                    {/* Top: Navigation Links + Logout */}
                     <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
                         <div>
-                            {/* Todo - use logos */}
-                            {user.is_premium ? <img className="h-8 w-10 border shadow rounded-sm" src={"./tf-plus-logo-new.png"}></img> : <img className="h-8 w-10 border shadow rounded-sm" src={"./tf-logo-new.png"}></img>}
+                            {user.is_premium ? <img className="h-8 w-8 border shadow rounded-sm" src={"./taskflux-plus-logo.png"}></img> : <img className="h-10 w-10 border shadow rounded-sm" src={"./taskflux-logo.png"}></img>}
                         </div>
                         <div className="mt-8 flex flex-col gap-4">
                             {links.map((link, idx) => (
@@ -88,7 +86,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
                         </div>
                     </div>
 
-                    {/* Bottom: Profile */}
+
                     <div className="flex flex-col gap-2 mb-4 items-center">
                         <div className="flex items-center gap-2">
                             {user.google_picture ? (

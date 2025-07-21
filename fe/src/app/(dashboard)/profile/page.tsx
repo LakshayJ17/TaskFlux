@@ -53,10 +53,10 @@ export default function ProfilePage() {
     if (!user) return null;
 
     return (
-        <div className="animate-fade-in delay-400 bg-gray-200/10 max-h-[100vh] px-10 mt-10">
+        <div className="animate-fade-in h-screen bg-gray-300/10 delay-400 max-h-[100vh] px-10 pt-10">
             <div className="flex gap-8">
                 <div className="basis-1/4 space-y-5">
-                    <div className="border bg-white rounded-xl flex flex-col items-center justify-center p-8 shadow">
+                    <div className="border bg-white dark:bg-black rounded-xl flex flex-col items-center justify-center p-8 shadow">
                         <div className="mb-4">
                             {user.google_picture ? (
                                 <img
@@ -76,7 +76,7 @@ export default function ProfilePage() {
                             {user.firstName} {user.lastName}
                         </div>
 
-                        <div className="space-y-2 text-gray-600">
+                        <div className="space-y-2 text-gray-600 dark:text-white">
                             <div className="flex gap-5">
                                 <Mail />
                                 {user.email}
@@ -96,16 +96,15 @@ export default function ProfilePage() {
 
                     {/* <div className="h-px bg-gray-300 hover:bg-purple-500 shadow-2xl" /> */}
 
-                    <div className="border bg-white rounded-xl flex flex-col items-center justify-center p-8 shadow">
+                    <div className="border bg-white dark:bg-black rounded-xl flex flex-col items-center justify-center p-8 shadow">
                         <div className="text-xl font-semibold mb-5">
                             Quick Actions
                         </div>
 
                         <div className="space-y-2 w-full">
-
-                            <Link href={'/new-workflow'} className="flex gap-3 p-3 border rounded-lg text-gray-800 text-light hover:bg-emerald-500 shadow"><Plus /> New WorkFlow</Link>
-                            <Link href={'/integrations'} className="flex gap-3 p-3 border rounded-lg text-gray-800 text-light hover:bg-emerald-500 shadow"><Link2 />Add Integrations</Link>
-                            <Link href={'/settings'} className="flex gap-3 p-3 border rounded-lg text-gray-800 text-light hover:bg-emerald-500 shadow"><Settings />Settings</Link>
+                            <Link href={'/new-workflow'} className="flex gap-3 p-3 border rounded-lg text-gray-800 text-light hover:bg-emerald-500 dark:text-white dark:hover:bg-emerald-800 shadow"><Plus /> New WorkFlow</Link>
+                            <Link href={'/integrations'} className="flex gap-3 p-3 border rounded-lg text-gray-800 text-light hover:bg-emerald-500 dark:text-white dark:hover:bg-emerald-800 shadow"><Link2 />Add Integrations</Link>
+                            <Link href={'/settings'} className="flex gap-3 p-3 border rounded-lg text-gray-800 text-light hover:bg-emerald-500 dark:text-white dark:hover:bg-emerald-800 shadow"><Settings />Settings</Link>
                         </div>
                     </div>
                 </div>
@@ -114,21 +113,21 @@ export default function ProfilePage() {
 
                 <div className="basis-3/4 flex flex-col space-y-6">
                     <div className="flex basis-1/5 gap-3">
-                        <div className="basis-1/3 bg-white rounded-xl border shadow flex justify-around items-center p-4 min-h-[90px]">
+                        <div className="basis-1/3 bg-white dark:bg-black rounded-xl border shadow flex justify-around items-center p-4 min-h-[90px]">
                             <div className="border rounded-2xl text-white bg-purple-500 p-3"><GitFork size={20} /></div>
                             <div>
                                 <div className="text-base font-bold">100</div>
                                 <div className="text-sm font-semibold text-gray-500">Workflows Created</div>
                             </div>
                         </div>
-                        <div className="basis-1/3 bg-white rounded-xl border shadow flex justify-around items-center p-4 min-h-[90px]">
+                        <div className="basis-1/3 bg-white dark:bg-black rounded-xl border shadow flex justify-around items-center p-4 min-h-[90px]">
                             <div className="border rounded-2xl text-white bg-purple-500 p-3"><IconLink size={20} /></div>
                             <div>
                                 <div className="text-base font-bold">10</div>
                                 <div className="text-sm font-semibold text-gray-500">Total Integrations</div>
                             </div>
                         </div>
-                        <div className="basis-1/3 bg-white rounded-xl border shadow flex justify-around items-center p-4 min-h-[90px]">
+                        <div className="basis-1/3 bg-white dark:bg-black rounded-xl border shadow flex justify-around items-center p-4 min-h-[90px]">
                             <div className="border rounded-2xl text-white bg-purple-500 p-3"><Play size={20} /></div>
                             <div>
                                 <div className="text-base font-bold">10</div>
@@ -139,35 +138,33 @@ export default function ProfilePage() {
 
                     {/* <div className="h-px bg-gray-300 hover:bg-purple-500 shadow-2xl" /> */}
 
-                    <div className="basis-4/5 border rounded-xl shadow bg-white">
+                    <div className="basis-4/5 border rounded-xl shadow bg-white dark:bg-black">
                         <div className="flex justify-between px-6 py-6 border-b bg-gray-300/20 rounded-t-xl items-center ">
                             <div className="font-semibold text-xl">Connected Integrations</div>
                             <Button className="flex bg-gradient-to-r from-emerald-800 to-emerald-400 hover:from-emerald-900 hover:to-emerald-600 w-4xs cursor-pointer py-3 px-4 text-sm"> <Plus size={18} /> Add Integration </Button>
                         </div>
-                        <div className="grid grid-cols-3 gap-3 p-4 max-h-[400px] overflow-y-auto">
+                        <div className="grid grid-cols-3 gap-3 p-4 max-h-[400px] overflow-y-auto dark:text-black">
                             {items.map((item: Integration) => (
                                 <div
                                     key={item.id}
                                     className={`
                                         rounded-xl p-4 flex flex-col gap-2 border shadow min-h-[90px]
-                                        ${item.status === "CONNECTED" ? "bg-emerald-50 border-emerald-300" : "bg-white border-red-300"}
+                                        ${item.status === "CONNECTED" ? "bg-emerald-50 dark:bg-emerald-500 border-emerald-300" : "bg-white border-red-300 dark:bg-red-400"}
                                     `}
                                 >
-                                    <div className="flex items-center justify-between gap-2">
-                                        <div>
+                                    <div className="flex flex-col gap-5">
+                                        <div className="flex">
                                             <span className="text-xl">{item.icon}</span>
                                             <span className="font-semibold text-base ml-2">{item.name}</span>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <span
+                                        <div
                                             className={`
-                                                px-2 py-0.5 rounded-full text-xs font-semibold
+                                                w-25 px-2 py-0.5 rounded-full text-xs font-semibold
                                                 ${item.status === "CONNECTED" ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"}
                                             `}
                                         >
                                             {item.status}
-                                        </span>
+                                        </div>
                                     </div>
                                 </div>
                             ))}

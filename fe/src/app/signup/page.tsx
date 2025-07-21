@@ -109,7 +109,6 @@ export default function SignupPage() {
             <Link className="underline text-purple-500 hover:text-purple-700" href={'/signin'} replace>Sign In</Link>
           </div>
 
-          {error && <p className="text-red-500 mb-2">{error}</p>}
           <form onSubmit={handleSubmit} className="space-y-3 mt-10">
             <div className="flex space-x-3">
               <div className="w-full">
@@ -202,7 +201,11 @@ export default function SignupPage() {
             </div>
             <Button className="w-full bg-purple-600 hover:bg-purple-700 hover:ring-purple-700" type="submit">Sign Up</Button>
           </form>
-          <Separator className="my-6 border-emerald-800" />
+          <div className="flex items-center my-6">
+            <div className="flex-grow border-t border-black"></div>
+            <span className="mx-4 text-emerald-800">Or continue with</span>
+            <div className="flex-grow border-t border-black"></div>
+          </div>
 
           <GoogleLogin
             onSuccess={handleGoogleSuccess}

@@ -27,7 +27,7 @@ export default function Dashboard() {
                 <div className="text-3xl font-semibold">
                     Your Workflows
                 </div>
-                <Button onClick={() => router.push('/new')} size="lg" className="cursor-pointer bg-emerald-600 hover:bg-emerald-700 text-lg font-medium">
+                <Button onClick={() => router.push('/new')} size="lg" className="cursor-pointer rounded-lg bg-emerald-600 hover:bg-emerald-700 text-lg font-medium">
                     <PlusCircle />
                     New
                 </Button>

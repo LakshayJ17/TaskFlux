@@ -33,10 +33,10 @@ export default function Header() {
     }, [dropdownOpen])
 
     return (
-        <header className="h-20 border-b border-gray-200 bg-white sticky top-0 z-50 px-6 py-5 min-w-full">
+        <header className="h-20 border-b border-gray-200 bg-white sticky top-0 z-50 px-6 py-5 min-w-full dark:bg-black dark:border-b-gray-900">
             <div className="container mx-auto flex items-center justify-between">
-                <Link href={'/'} className="flex items-center">
-                    <img src="./tf-logo-new.png" className="h-10 w-16 mt-1" alt="TF-logo" />
+                <Link href={'/'} className="flex items-center gap-x-3">
+                    <img src="./taskflux-logo.png" className="h-12 w-12 rounded-lg" alt="TF-logo" />
                     <div
                         className="text-xl sm:text-3xl font-bold bg-gradient-to-r from-emerald-600 to-violet-600 bg-clip-text text-transparent">
                         TaskFlux
@@ -46,17 +46,17 @@ export default function Header() {
 
                 {!user && (
                     <nav className="flex-1 flex justify-center">
-                        <div className="hidden md:flex items-center space-x-8">
-                            <Link href="/#features" className="text-gray-600 hover:text-emerald-600 transition-colors">
+                        <div className="hidden md:flex items-center space-x-8 ">
+                            <Link href="/#features" className="text-gray-600 dark:text-white hover:text-emerald-600 dark:hover:text-purple-400 transition-colors">
                                 Features
                             </Link>
-                            <Link href="/#integrations" className="text-gray-600 hover:text-emerald-600 transition-colors">
+                            <Link href="/#integrations" className="text-gray-600 dark:text-white hover:text-emerald-600 dark:hover:text-purple-400 transition-colors">
                                 Integrations
                             </Link>
-                            <Link href="/#demo" className="text-gray-600 hover:text-emerald-600 transition-colors">
+                            <Link href="/#demo" className="text-gray-600 dark:text-white hover:text-emerald-600 dark:hover:text-purple-400 transition-colors">
                                 Demo
                             </Link>
-                            <Link href="/pricing" className="text-gray-600 hover:text-emerald-600 transition-colors">
+                            <Link href="/pricing" className="text-gray-600 dark:text-white hover:text-emerald-600 dark:hover:text-purple-400 transition-colors">
                                 Pricing
                             </Link>
                         </div>
@@ -121,13 +121,13 @@ export default function Header() {
                         </>
                     ) : (
                         <div className="flex flex-row space-x-5">
-                            <Button onClick={() => router.push('/signin')} variant="outline" size={"lg"} className="hidden sm:block border-emerald-200 hover:bg-emerald-50 hover:border-emerald-700 bg-transparent">
+                            <Button onClick={() => router.push('/signin')} variant="outline" size={"lg"} className="cursor-pointer hidden sm:block border-emerald-200 hover:bg-emerald-50 hover:border-emerald-700 bg-transparent">
                                 Sign In
                             </Button>
                             <Button
                                 onClick={() => router.push('/signup')}
                                 size={"lg"}
-                                className="bg-violet-500 hover:bg-violet-600"
+                                className="bg-violet-500 hover:bg-violet-600 text-white cursor-pointer"
                             >
                                 Get Started
                             </Button>

@@ -1,11 +1,11 @@
 "use client"
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, CreditCard, Gift, Key, Shield, Zap } from "lucide-react";
 import Header from "../../components/layout/Header";
 import { useRouter } from "next/navigation";
+import { Accordion, AccordionContent, AccordionTrigger, AccordionItem  } from "@/components/ui/accordion";
 
 
 export default function PricingSection() {
@@ -14,12 +14,12 @@ export default function PricingSection() {
     return (
         <div className="animate-fade-in delay-200">
             <Header />
-            <section className="flex justify-center items-center flex-col py-10 px-6 bg-gradient-to-br from-gray-50 to-emerald-50 animate-fade-in delay-200">
+            <section className="flex justify-center items-center flex-col py-10 px-6 bg-white dark:bg-black animate-fade-in delay-200">
 
                 <div className="container mx-auto max-w-6xl">
                     <div className="text-center mb-16 animate-fade-in-up">
-                        <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">Choose Your AI Power</h2>
-                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                        <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">Choose Your AI Power</h2>
+                        <p className="text-xl text-gray-600 max-w-3xl dark:text-white mx-auto">
                             Flexible options to fit your needs. Start free and scale as you grow.
                         </p>
                     </div>
@@ -31,15 +31,15 @@ export default function PricingSection() {
                             <CardContent className="p-8">
                                 <div className="text-center mb-6">
                                     <Gift className="h-12 w-12 text-emerald-500 mx-auto mb-4" />
-                                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Free Forever</h3>
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-2 dark:text-emerald-400">Free Forever</h3>
                                     <p className="text-gray-600">Perfect for getting started</p>
                                 </div>
                                 <div className="text-center mb-6">
                                     <div className="flex justify-center items-center-safe space-x-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-indian-rupee-icon lucide-indian-rupee"><path d="M6 3h12" /><path d="M6 8h12" /><path d="m6 13 8.5 8" /><path d="M6 13h3" /><path d="M9 13c6.667 0 6.667-10 0-10" /></svg>
-                                        <div className="text-4xl font-bold text-gray-900 mb-2">0</div>
+                                        <div className="text-4xl font-bold text-gray-900 mb-2 dark:text-white">0</div>
                                     </div>
-                                    <div className="text-gray-600">Forever</div>
+                                    <div className="text-gray-600 dark:text-purple-500">Forever</div>
                                 </div>
                                 <ul className="space-y-3 mb-8">
                                     <li className="flex items-center">
@@ -72,15 +72,15 @@ export default function PricingSection() {
                             <CardContent className="p-8">
                                 <div className="text-center mb-6">
                                     <Zap className="h-12 w-12 text-violet-500 mx-auto mb-4" />
-                                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Plus</h3>
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-2 dark:text-purple-400">Plus</h3>
                                     <p className="text-gray-600">We provide the AI power</p>
                                 </div>
                                 <div className="text-center mb-6">
                                     <div className="flex justify-center items-center-safe space-x-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-indian-rupee-icon lucide-indian-rupee"><path d="M6 3h12" /><path d="M6 8h12" /><path d="m6 13 8.5 8" /><path d="M6 13h3" /><path d="M9 13c6.667 0 6.667-10 0-10" /></svg>
-                                        <div className="text-4xl font-bold text-gray-900 mb-2">10000</div>
+                                        <div className="text-4xl font-bold text-gray-900 mb-2 dark:text-white">10000</div>
                                     </div>
-                                    <div className="text-gray-600">Validity : Lifetime</div>
+                                    <div className="text-gray-600 dark:text-purple-500">Validity : Lifetime</div>
                                 </div>
                                 <ul className="space-y-3 mb-8">
                                     <li className="flex items-center">
@@ -110,12 +110,12 @@ export default function PricingSection() {
                             <CardContent className="p-8">
                                 <div className="text-center mb-6">
                                     <Shield className="h-12 w-12 text-gray-500 mx-auto mb-4" />
-                                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Enterprise</h3>
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-2 dark:text-white">Enterprise</h3>
                                     <p className="text-gray-600">For large organizations</p>
                                 </div>
                                 <div className="text-center mb-6">
-                                    <div className="text-4xl font-bold text-gray-900 mb-2">Custom</div>
-                                    <div className="text-gray-600">Volume pricing</div>
+                                    <div className="text-4xl font-bold text-gray-900 mb-2 dark:text-white">Custom</div>
+                                    <div className="text-gray-600 dark:text-purple-500">Volume pricing</div>
                                 </div>
                                 <ul className="space-y-3 mb-8">
                                     <li className="flex items-center">
@@ -178,14 +178,14 @@ export default function PricingSection() {
                     </div> */}
 
                     
-                    {/* <Accordion type="single" collapsible>
+                    <Accordion type="single" collapsible>
                         <AccordionItem value="item-1">
                             <AccordionTrigger>Is it accessible?</AccordionTrigger>
                             <AccordionContent>
                                 Yes. It adheres to the WAI-ARIA design pattern.
                             </AccordionContent>
                         </AccordionItem>
-                    </Accordion> */}
+                    </Accordion>
 
 
                 </div>
