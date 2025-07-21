@@ -33,7 +33,7 @@ export default function Header() {
     }, [dropdownOpen])
 
     return (
-        <header className="h-20 border-b border-gray-200 bg-white sticky top-0 z-50 px-6 py-5 min-w-full dark:bg-black dark:border-b-gray-900">
+        <header className="h-20 border-b border-gray-200 bg-white sticky top-0 z-50 px-3 md:px-6 py-5 min-w-full dark:bg-black dark:border-b-gray-900">
             <div className="container mx-auto flex items-center justify-between">
                 <Link href={'/'} className="flex items-center gap-x-3">
                     <img src="./taskflux-logo.png" className="h-12 w-12 rounded-lg" alt="TF-logo" />

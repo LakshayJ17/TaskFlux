@@ -210,7 +210,7 @@ function HeroSection({ nodes, edges, onNodesChange, onEdgesChange, onConnect }) 
   return (
     <section
       id="hero-section"
-      className="relative pt-25 px-6 bg-gradient-to-br from-emerald-50 to-violet-50 overflow-hidden dark:bg-gradient-to-r dark:from-emerald-950 via-black dark:to-purple-950/50 animate-gradient"
+      className="relative pt-25 px-6 bg-gradient-to-br from-emerald-400/40 via-white to-violet-400/40 overflow-hidden dark:bg-gradient-to-r dark:from-emerald-950 dark:via-black dark:to-purple-950/40 animate-gradient"
 
     >
       
@@ -234,16 +234,15 @@ function HeroSection({ nodes, edges, onNodesChange, onEdgesChange, onConnect }) 
             <Button
             onClick={() => router.push('/signup')}
               size="lg"
-              className="bg-violet-500 hover:bg-violet-600 text-white  p-6 text-lg transform transition-all duration-300 shadow-xl hover:shadow-2xl"
+              className="cursor-pointer bg-violet-500 hover:bg-violet-600 text-white  p-6 text-lg transform transition-all duration-300 shadow-xl hover:shadow-2xl"
             >
               <Rocket />
               Start Building Free
-
             </Button>
             <Button
               variant="outline"
               size="lg"
-              className="px-8 py-4 text-lg backdrop-blur-sm border-emerald-800 hover:bg-emerald-50 hover:border-emerald-600 transform transition-all duration-300 p-6 text-black hover:text-black dark:text-white"
+              className="cursor-pointer px-8 py-4 text-lg backdrop-blur-sm border-emerald-800 hover:bg-emerald-50 hover:border-emerald-600 transform transition-all duration-300 p-6 text-black hover:text-black dark:text-white"
             >
               Watch Live Demo
               <ArrowRight className="ml-2 h-6 w-6" />
