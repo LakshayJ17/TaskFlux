@@ -264,6 +264,20 @@ async def update_user(updated_data : UpdateUserSchema , current_user: dict = Dep
         "updated_fields": list(update_fields.keys())
     }
 
+@router.delete("/delete", response_model=dict)
+async def delete_account(current_user: dict = Depends(get_current_user)):
+    db = get_mongo_db()
+
+    result = await db.users.delete_one({
+        "_id" : ObjectId(current_user["_id"])
+    })
+
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return {
+        "message" : "User deleted succesfully"
+    }
 
 # Refresh Jwt token
 @router.post("/refresh", response_model=dict)

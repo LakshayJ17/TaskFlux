@@ -18,6 +18,9 @@ export default function SecuritySettings({ user }: { user: PasswordInterface }) 
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [confirmText, setConfirmText] = useState("");
+
   const handleSaveChanges = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -56,8 +59,31 @@ export default function SecuritySettings({ user }: { user: PasswordInterface }) 
       setNewPassword("");
       setConfirmNewPassword("");
     } catch (error) {
-      // console.log(error);
       toast.error("Something went wrong");
+    }
+  };
+
+  const handleDelete = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Unauthorized");
+      return;
+    }
+
+    try {
+      await axios.delete("http://127.0.0.1:8000/api/v1/auth/delete", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success("Account deleted. Goodbye!");
+      localStorage.removeItem("token");
+      window.location.href = "/";
+    } catch (error) {
+      toast.error("Failed to delete account");
+    } finally {
+      setShowDeleteModal(false);
+      setConfirmText("");
     }
   };
 
@@ -95,7 +121,6 @@ export default function SecuritySettings({ user }: { user: PasswordInterface }) 
               </div>
             </div>
 
-            {/* New Password */}
             <div className="flex flex-col w-full relative">
               <label htmlFor="newPassword" className="text-md font-semibold p-1">NEW PASSWORD</label>
               <div className="relative">
@@ -138,13 +163,11 @@ export default function SecuritySettings({ user }: { user: PasswordInterface }) 
               </div>
             </div>
           </div>
-
         </div>
 
         {user.auth_provider === "google" && (
           <p className="px-10 pb-5 text-sm text-gray-500">Accounts created using Google cannot change password</p>
         )}
-
 
         <div className="px-10 pb-10">
           <Button
@@ -156,6 +179,47 @@ export default function SecuritySettings({ user }: { user: PasswordInterface }) 
           </Button>
         </div>
       </div>
+
+      <div className="px-1 py-10">
+        <Button
+          className="cursor-pointer"
+          variant={"destructive"}
+          onClick={() => setShowDeleteModal(true)}
+        >
+          Delete Account
+        </Button>
+      </div>
+
+      {showDeleteModal && (
+        <div className="fixed inset-0 z-50 bg-white dark:bg-black bg-opacity-40 flex items-center justify-center">
+          <div className="bg-gray-100/50 dark:bg-gray-600/20 rounded-xl p-6 max-w-md space-y-4 shadow-xl">
+            <h2 className="text-lg font-semibold text-red-600">Confirm Delete</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-300">
+              This action is permanent. Type <strong>delete</strong> to confirm account deletion.
+            </p>
+            <input
+              type="text"
+              placeholder="Type 'delete' to confirm"
+              className="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:text-white"
+              value={confirmText}
+              onChange={(e) => setConfirmText(e.target.value)}
+            />
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" onClick={() => { setShowDeleteModal(false); setConfirmText(""); }}>
+                Cancel
+              </Button>
+              <Button
+                variant="destructive"
+                onClick={handleDelete}
+                disabled={confirmText !== "delete"}
+                className={confirmText === "delete" ? "" : "opacity-50 cursor-not-allowed"}
+              >
+                Delete
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
