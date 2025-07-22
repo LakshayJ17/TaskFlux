@@ -2,6 +2,7 @@
 
 import AppearanceSettings from "@/components/settings-components/appearance-settings";
 import ProfileSettings from "@/components/settings-components/profile-settings";
+import SecuritySettings from "@/components/settings-components/security-settings";
 import { LoaderFour } from "@/components/ui/loader";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useAuthIfNotLoggedIn } from "@/hooks/useAuthIfNotLoggedIn";
@@ -47,7 +48,7 @@ export default function SettingsPage() {
                     <div className="p-6 rounded-xl shadow">Notification Settings - Soon</div>
                 </TabsContent>
                 <TabsContent value="security">
-                    <div className="p-6 rounded-xl shadow">Security Settings - Soon</div>
+                    <SecuritySettings user={user} />
                 </TabsContent>
                 <TabsContent value="appearance">
                     <AppearanceSettings />

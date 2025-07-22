@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { LoaderFour } from "@/components/ui/loader";
 import { useAuthIfNotLoggedIn } from "@/hooks/useAuthIfNotLoggedIn"
 import { IconLink } from "@tabler/icons-react";
-import { Calendar, Edit, GitFork, Link2, Mail, Play, Plus, Settings } from "lucide-react";
+import { Calendar, Edit, GitFork, Link2, Mail, Play, Plus, Stars } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type Integration = {
     id: string;
@@ -43,6 +44,7 @@ const items: Integration[] = [
 
 export default function ProfilePage() {
     const { user, loading, error } = useAuthIfNotLoggedIn();
+    const router = useRouter();
 
     if (loading) return (
         <div className="flex items-center justify-center min-h-[200px] w-full">
@@ -88,7 +90,7 @@ export default function ProfilePage() {
                             </div>
                         </div>
 
-                        <Button className="flex bg-gradient-to-r from-emerald-800 to-emerald-400 hover:from-emerald-900 hover:to-emerald-600 w-2xs mt-5 cursor-pointer py-5">
+                        <Button onClick={() => router.push('/settings')} className="flex bg-gradient-to-r from-emerald-800 to-emerald-400 hover:from-emerald-900 hover:to-emerald-600 w-2xs mt-5 cursor-pointer py-5">
                             <Edit />
                             Edit Profile
                         </Button>
@@ -104,7 +106,7 @@ export default function ProfilePage() {
                         <div className="space-y-2 w-full">
                             <Link href={'/new-workflow'} className="flex gap-3 p-3 border rounded-lg text-gray-800 text-light hover:bg-emerald-500 dark:text-white dark:hover:bg-emerald-800 shadow"><Plus /> New WorkFlow</Link>
                             <Link href={'/integrations'} className="flex gap-3 p-3 border rounded-lg text-gray-800 text-light hover:bg-emerald-500 dark:text-white dark:hover:bg-emerald-800 shadow"><Link2 />Add Integrations</Link>
-                            <Link href={'/settings'} className="flex gap-3 p-3 border rounded-lg text-gray-800 text-light hover:bg-emerald-500 dark:text-white dark:hover:bg-emerald-800 shadow"><Settings />Settings</Link>
+                            <Link href={'/pricing'} className="flex gap-3 p-3 border rounded-lg text-gray-800 text-light hover:bg-emerald-500 dark:text-white dark:hover:bg-emerald-800 shadow"><Stars className="text-yellow-500" /> Upgrade to Plus</Link>
                         </div>
                     </div>
                 </div>

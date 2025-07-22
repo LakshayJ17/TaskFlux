@@ -37,9 +37,9 @@ export default function ProfileSettings({ user }: { user: UserInterface }) {
         }
 
         try {
-            console.log("Sending ")
-            console.log("Updated data", updatedData)
-            const res = await axios.patch("http://127.0.0.1:8000/api/v1/auth/me",
+            // console.log("Sending ")
+            // console.log("Updated data", updatedData)
+            await axios.patch("http://127.0.0.1:8000/api/v1/auth/me",
                 updatedData,
                 {
                     headers: {
@@ -56,7 +56,6 @@ export default function ProfileSettings({ user }: { user: UserInterface }) {
         }
 
     }
-
 
 
     return (
@@ -115,7 +114,9 @@ export default function ProfileSettings({ user }: { user: UserInterface }) {
                 <div className="px-10 pb-10">
                     <Button
                         onClick={handleSaveChanges}
-                        className="cursor-pointer px-5 py-5 font-semibold text-white bg-purple-500 hover:bg-purple-600 ">Save Changes</Button>
+                        className="cursor-pointer px-5 py-5 font-semibold text-white bg-purple-500 hover:bg-purple-600 ">
+                        Save Changes
+                    </Button>
                 </div>
             </div>
         </div>

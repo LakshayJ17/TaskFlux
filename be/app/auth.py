@@ -224,17 +224,34 @@ async def update_user(updated_data : UpdateUserSchema , current_user: dict = Dep
     update_fields = updated_data.model_dump(exclude_none=True)
 
     if not update_fields:
-        raise HTTPException(status_code=400, detail = "No fields to update")
+        raise HTTPException(status_code=400, detail="No fields to update")
     
 
-    if current_user.get("auth_provider") == "google" and "email" in update_fields:
-        raise HTTPException(status_code=403, detail = "Google authenticated users cannot change email")
-    
+    if current_user.get("auth_provider") == "google":
+        if "email" in update_fields:
+            raise HTTPException(status_code=403, detail="Google-authenticated users cannot change email")
+        if "password" in update_fields or "new_password" in update_fields:
+            raise HTTPException(status_code=403, detail="Google-authenticated users cannot change password")
+
     
     if "email" in update_fields and update_fields["email"] != current_user["email"]:
         if await db.users.find_one({"email": update_fields["email"]}):
             raise HTTPException(status_code=400, detail="Email already in use")
-        
+    
+
+    if "password" in update_fields or "new_password" in update_fields:
+        if not ("password" in update_fields and "new_password" in update_fields):
+            raise HTTPException(status_code=400, detail="Both current and new passwords are required to update password.")
+
+        if not verify_password(update_fields["password"], current_user["hashed_password"]):
+            raise HTTPException(status_code=403, detail="Current password is incorrect")
+
+        hashed_new_password = hash_password(update_fields["new_password"])
+        update_fields["hashed_password"] = hashed_new_password
+        del update_fields["password"]
+        del update_fields["new_password"]
+
+
     update_fields["updated_at"] = datetime.now(UTC)
 
     await db.users.update_one(
@@ -244,7 +261,7 @@ async def update_user(updated_data : UpdateUserSchema , current_user: dict = Dep
 
     return {
         "message": "Profile updated successfully",
-        "updated_fields": update_fields
+        "updated_fields": list(update_fields.keys())
     }
 
 

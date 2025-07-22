@@ -29,5 +29,7 @@ class UpdateUserSchema(BaseModel):
     firstName : Optional[str] = None
     lastName : Optional[str] = None
     email : Optional[EmailStr] = None
+    password: Optional[str] = None
+    new_password: Optional[str] = None
 
 
