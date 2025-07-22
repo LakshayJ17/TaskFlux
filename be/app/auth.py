@@ -7,9 +7,8 @@ import jwt
 import os
 from dotenv import load_dotenv
 from bson import ObjectId
-# from app.db import mongo_db
 from .db import get_mongo_db
-from .schemas.UserSchemas import UserCreate, UserLogin, UserResponse
+from .schemas.UserSchemas import UserCreate, UserLogin, UserResponse, UpdateUserSchema
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
 
@@ -128,7 +127,8 @@ async def signup(user_data : UserCreate):
         "created_at": now,
         "updated_at" : now,
         "is_active" : True,
-        "is_premium" : False
+        "is_premium" : False,
+        "auth_provider": "taskflux"
     }
 
     result = await db.users.insert_one(user_doc)
@@ -213,8 +213,40 @@ async def get_current_user_info(current_user: dict = Depends(get_current_user)):
         "created_at": current_user["created_at"],
         "is_active": current_user.get("is_active", True),
         "is_premium" : current_user.get("is_premium", False),
-        "google_picture"  : current_user.get("google_picture")
+        "google_picture"  : current_user.get("google_picture"),
+        "auth_provider": current_user.get("auth_provider")
     }
+
+@router.patch("/me", response_model=dict)
+async def update_user(updated_data : UpdateUserSchema , current_user: dict = Depends(get_current_user)  ):
+    db = get_mongo_db()
+
+    update_fields = updated_data.model_dump(exclude_none=True)
+
+    if not update_fields:
+        raise HTTPException(status_code=400, detail = "No fields to update")
+    
+
+    if current_user.get("auth_provider") == "google" and "email" in update_fields:
+        raise HTTPException(status_code=403, detail = "Google authenticated users cannot change email")
+    
+    
+    if "email" in update_fields and update_fields["email"] != current_user["email"]:
+        if await db.users.find_one({"email": update_fields["email"]}):
+            raise HTTPException(status_code=400, detail="Email already in use")
+        
+    update_fields["updated_at"] = datetime.now(UTC)
+
+    await db.users.update_one(
+        {"_id" : ObjectId(current_user["_id"])},
+        {"$set" : update_fields}
+    )
+
+    return {
+        "message": "Profile updated successfully",
+        "updated_fields": update_fields
+    }
+
 
 # Refresh Jwt token
 @router.post("/refresh", response_model=dict)

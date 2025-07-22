@@ -1,4 +1,5 @@
 "use client"
+
 import AppearanceSettings from "@/components/settings-components/appearance-settings";
 import ProfileSettings from "@/components/settings-components/profile-settings";
 import { LoaderFour } from "@/components/ui/loader";
@@ -10,7 +11,7 @@ export default function SettingsPage() {
     const { user, loading, error } = useAuthIfNotLoggedIn();
 
     if (loading) return (
-        <div className="flex items-center justify-center min-h-[200px] w-full">
+        <div className="flex items-center justify-center h-[100vh] w-full">
             <LoaderFour />
         </div>
     );
@@ -40,31 +41,22 @@ export default function SettingsPage() {
                 </TabsList>
 
                 <TabsContent value="profile">
-                    {/* Profile content goes here */}
-                    <div className="p-6 bg-white rounded-xl shadow">Profile Information</div>
-                    <ProfileSettings />
+                    <ProfileSettings user={user} />
                 </TabsContent>
                 <TabsContent value="notifications">
-                    {/* Notifications content goes here */}
-                    <div className="p-6 bg-white rounded-xl shadow">Notification Settings</div>
+                    <div className="p-6 rounded-xl shadow">Notification Settings - Soon</div>
                 </TabsContent>
                 <TabsContent value="security">
-                    {/* Security content goes here */}
-                    <div className="p-6 bg-white rounded-xl shadow">Security Settings</div>
+                    <div className="p-6 rounded-xl shadow">Security Settings - Soon</div>
                 </TabsContent>
                 <TabsContent value="appearance">
-                    {/* Appearance content goes here */}
-                    {/* <div className="p-6 bg-white rounded-xl shadow">Appearance Settings</div> */}
-
                     <AppearanceSettings />
                 </TabsContent>
                 <TabsContent value="billing">
-                    {/* Billing content goes here */}
-                    <div className="p-6 bg-white rounded-xl shadow">Billing Settings</div>
+                    <div className="p-6 rounded-xl shadow">Billing Settings - Soon</div>
                 </TabsContent>
                 <TabsContent value="support">
-                    {/* Support content goes here */}
-                    <div className="p-6 bg-white rounded-xl shadow">Support</div>
+                    <div className="p-6 rounded-xl shadow">Support - Soon</div>
                 </TabsContent>
             </Tabs>
         </div>

@@ -17,19 +17,19 @@ export default function AppearanceSettings() {
 
                 <div className="flex justify-around p-5">
                     <button
-                        className={`px-4 py-2 rounded ${theme === "light" ? "bg-emerald-200 font-bold" : ""}`}
+                        className={`px-4 py-2 rounded ${theme === "light" ? "bg-emerald-500 font-bold" : ""}`}
                         onClick={() => setTheme("light")}
                     >
                         <Sun className="inline mr-2" /> Light
                     </button>
                     <button
-                        className={`px-4 py-2 rounded ${theme === "dark" ? "bg-emerald-200 font-bold" : ""}`}
+                        className={`px-4 py-2 rounded ${theme === "dark" ? "bg-emerald-500 font-bold" : ""}`}
                         onClick={() => setTheme("dark")}
                     >
                         <Moon className="inline mr-2" /> Dark
                     </button>
                     <button
-                        className={`px-4 py-2 rounded ${theme === "system" ? "bg-emerald-200 font-bold" : ""}`}
+                        className={`px-4 py-2 rounded ${theme === "system" ? "bg-emerald-500 font-bold" : ""}`}
                         onClick={() => setTheme("system")}
                     >
                         <Monitor className="inline mr-2" /> System

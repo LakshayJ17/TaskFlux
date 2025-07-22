@@ -25,4 +25,9 @@ class UserResponse(BaseModel):
     google_id: Optional[str] = None
     auth_provider: Optional[str] = None
 
+class UpdateUserSchema(BaseModel):
+    firstName : Optional[str] = None
+    lastName : Optional[str] = None
+    email : Optional[EmailStr] = None
+
 

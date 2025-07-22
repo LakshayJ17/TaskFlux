@@ -20,6 +20,7 @@ export function useCurrentUser() {
                 const res = await axios.get("http://127.0.0.1:8000/api/v1/auth/me", {
                     headers: { Authorization: `Bearer ${token}` }
                 });
+                console.log(res.data)
                 setUser(res.data);
             } catch (err) {
                 setError(err);
