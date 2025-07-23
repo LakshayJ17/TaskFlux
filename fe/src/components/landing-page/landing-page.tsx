@@ -187,23 +187,22 @@ function HeroSection({ nodes, edges, onNodesChange, onEdgesChange, onConnect }) 
     <section
       id="hero-section"
       className="relative pt-25 px-6 bg-gradient-to-br from-emerald-400/40 via-white to-violet-400/40 overflow-hidden dark:bg-gradient-to-r dark:from-emerald-950 dark:via-black dark:to-purple-950/40 animate-gradient"
-
     >
 
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#10b98120_1px,transparent_1px),linear-gradient(to_bottom,#10b98120_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#10b98120_1px,transparent_1px),linear-gradient(to_bottom,#10b98120_1px,transparent_1px)] bg-[size:75px_75px]"></div>
       </div>
 
       <div className="container mx-auto max-w-7xl relative z-10 animate-fade-in delay-400">
         <div className="text-center space-y-8 mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold text-emerald-600 leading-tight dark:text-emerald-500">
+          <h1 className="text-4xl md:text-6xl text-emerald-600 leading-tight font-bold dark:text-emerald-500">
             Automate Your Workflows
             <br />
             <span className="bg-gradient-to-r from-emerald-600 to-violet-500 bg-clip-text text-transparent animate-gradient">
               Without Limits
             </span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-700 dark:text-white max-w-5xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-400/90  max-w-5xl mx-auto leading-relaxed">
             Build powerful automation workflows with our visual editor. Connect your favorite apps, automate repetitive tasks, and focus on what matters most.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in delay-400">
@@ -364,7 +363,7 @@ export default function WorkflowLanding() {
       <VideoDemo />
       <FAQsection />
       <IntegrationsMarquee />
-      <CTASection email={email} setEmail={setEmail} />
+      {/* <CTASection email={email} setEmail={setEmail} /> */}
       <Footer />
     </div>
   )

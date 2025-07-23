@@ -1,15 +1,33 @@
+"use client"
+
 import Header from "@/components/layout/Header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { LoaderFour } from "@/components/ui/loader";
+import { useAuthIfNotLoggedIn } from "@/hooks/useAuthIfNotLoggedIn";
 import { IconRobotFace } from "@tabler/icons-react";
 import { ArrowRight, Crown, MessageSquare, Mic, Plus, Stars, WorkflowIcon, Move, Settings, GitBranch, BookOpenCheck } from "lucide-react";
+import Image from "next/image";
 
 export default function New() {
+    const { user, loading, error } = useAuthIfNotLoggedIn();
+
+    if (loading) return (
+        <div className="flex items-center justify-center h-[100vh] w-full">
+            <LoaderFour />
+        </div>
+    );
+    if (error) return <div>Error loading user</div>;
+    if (!user) return null;
+
     return (
-        <div className="w-full min-h-screen">
+        <div className="w-full min-h-screen relative">
+            <div className="absolute inset-0">
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#10b98120_1px,transparent_1px),linear-gradient(to_bottom,#10b98120_1px,transparent_1px)] bg-[size:75px_75px]"></div>
+            </div>
             <Header />
             <div className="w-full flex-col flex items-center justify-center bg-white dark:bg-black px-4">
-                <div className="flex flex-col items-center w-full md:w-1/2 text-center mt-10">
+                <div className="animate-fade-in delay-400 flex flex-col items-center w-full md:w-1/2 text-center">
                     <h1 className="text-4xl font-bold">Create New WorkFlow</h1>
                     <p className="text-center mt-2">
                         Choose how you&apos;d like to build your workflow. Create manually with
@@ -17,11 +35,10 @@ export default function New() {
                     </p>
                 </div>
 
-                <div className="flex flex-col lg:flex-row w-full md:w-2/3 mt-10 gap-10">
-                    {/* Manual Workflow */}
-                    <div className="basis-1/2 border rounded-xl p-8 hover:shadow-xl transition-all">
-                        <div className="flex space-x-3 items-start">
-                            <WorkflowIcon className="border size-10 p-2 rounded-xl shrink-0" />
+                <div className="flex flex-col lg:flex-row w-full md:w-2/3 mt-5 gap-10">
+                    <div className="animate-fade-in delay-400 relative basis-1/2 border rounded-xl p-8 bg-white dark:bg-black hover:shadow-xl dark:hover:shadow-2xl dark:hover:shadow-emerald-500/20 transition-all">
+                        <div className="flex space-x-3 items-center">
+                            <WorkflowIcon className="border size-11 p-2 rounded-xl shrink-0" />
                             <div className="flex flex-col space-y-1">
                                 <div className="font-semibold text-xl">Manual Workflow</div>
                                 <div className="text-sm text-gray-500 dark:text-gray-300">
@@ -49,16 +66,16 @@ export default function New() {
                             </div>
                         </div>
 
-                        <div className="mt-6 bg-gradient-to-br from-emerald-400/80 via-emerald-700/80 to-emerald-600/80 rounded-lg p-5 space-y-3">
+                        <div className="mt-6 border-2 bg-gray-950/80 rounded-lg p-5 space-y-3">
                             <div className="flex justify-between">
                                 <p className="text-white">Free Plan</p>
-                                <Badge className="bg-emerald-500 py-1.5 text-white w-24 text-center">
+                                <Badge className="bg-purple-500 py-1.5 text-white w-24 text-center">
                                     2 workflows
                                 </Badge>
                             </div>
                             <div className="flex justify-between">
                                 <p className="text-white">Plus Plan</p>
-                                <Badge className="bg-gradient-to-r py-1.5 from-emerald-500 to-purple-500 w-24 text-center">
+                                <Badge className="bg-gradient-to-r py-1.5 from-emerald-500 to-purple-500 w-24 text-center border-emerald-600/80">
                                     Unlimited
                                 </Badge>
                             </div>
@@ -70,7 +87,7 @@ export default function New() {
 
                         <Button
                             size={"lg"}
-                            className="flex justify-center gap-2 items-center rounded-xl py-6 w-full mt-5 cursor-pointer bg-gradient-to-br from-emerald-400/90 via-emerald-700/90 to-emerald-600/90 hover:from-emerald-400 hover:via-emerald-700 hover:to-emerald-600"
+                            className="flex justify-center gap-2 items-center rounded-xl py-6 w-full mt-5 cursor-pointer bg-gradient-to-br from-emerald-400/90 via-emerald-700/90 to-emerald-600/90 hover:from-emerald-400 hover:via-emerald-700 hover:to-emerald-600 text-white"
                         >
                             <Plus />
                             Create Manual Workflow
@@ -78,10 +95,10 @@ export default function New() {
                         </Button>
                     </div>
 
-                    {/* FluxBot AI */}
-                    <div className="basis-1/2 border rounded-xl p-8 hover:shadow-xl transition-all">
-                        <div className="flex space-x-3 items-start">
-                            <WorkflowIcon className="border size-10 p-2 rounded-xl shrink-0" />
+
+                    <div className="animate-fade-in delay-400 relative basis-1/2 border rounded-xl p-8 bg-white dark:bg-black hover:shadow-xl dark:hover:shadow-2xl dark:hover:shadow-purple-500/20 transition-all">
+                        <div className="flex space-x-3 items-center">
+                            <Image width={40} height={40} src="/fluxbot-closeup.png" alt="Fluxbot" className="rounded-xl" />
                             <div className="flex flex-col space-y-1">
                                 <div className="flex items-center gap-2 font-semibold text-xl">
                                     FluxBot AI
@@ -115,7 +132,7 @@ export default function New() {
                             </div>
                         </div>
 
-                        <div className="mt-6 bg-gradient-to-br from-purple-400 via-purple-700 to-purple-600 rounded-lg p-5 space-y-3">
+                        <div className="mt-6 border-2 bg-gray-950/80 rounded-lg p-5 space-y-3">
                             <div className="flex justify-between">
                                 <p className="text-white">Free Plan</p>
                                 <Badge className="bg-emerald-500 py-1.5 text-white w-24 text-center">
@@ -124,7 +141,7 @@ export default function New() {
                             </div>
                             <div className="flex justify-between">
                                 <p className="text-white">Plus Plan</p>
-                                <Badge className="bg-gradient-to-r py-1.5 from-emerald-500 to-purple-500 w-24 text-center">
+                                <Badge className="bg-gradient-to-r py-1.5 from-emerald-500 to-purple-500 w-24 text-center border-purple-600/80">
                                     Unlimited
                                 </Badge>
                             </div>
@@ -136,7 +153,7 @@ export default function New() {
 
                         <Button
                             size={"lg"}
-                            className="flex justify-center gap-2 items-center rounded-xl py-6 w-full mt-5 cursor-pointer bg-gradient-to-br from-purple-400/90 via-purple-700/90 to-purple-600/90 hover:from-purple-400 hover:via-purple-700 hover:to-purple-600"
+                            className="flex justify-center gap-2 items-center rounded-xl py-6 w-full mt-5 cursor-pointer bg-gradient-to-br from-purple-400/90 via-purple-700/90 to-purple-600/90 hover:from-purple-400 hover:via-purple-700 hover:to-purple-600 text-white hover:ring:text-emerald-800"
                         >
                             <MessageSquare />
                             Chat with FluxBot

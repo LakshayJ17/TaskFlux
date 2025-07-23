@@ -36,8 +36,8 @@ export default function Header() {
     return (
         <header className="w-full h-20 flex justify-center items-center border-b-gray-400 bg-white sticky top-0 z-50 px-3 md:px-6 py-5 min-w-full dark:bg-black dark:border-b-gray-900">
             <div className="w-full flex items-center justify-between">
-                <Link href={'/'} className="flex items-center gap-x-3">
-                    <Image width={60} height={60} className="rounded-lg" src="/taskflux-logo.png" alt="TaskFlux Logo" />
+                <Link href={user ? '/dashboard' : '/'} className="flex items-center gap-x-3">
+                    <Image width={50} height={50} className="rounded-lg" src="/taskflux-logo.png" alt="TaskFlux Logo" />
                     <div
                         className="text-xl sm:text-3xl font-bold bg-gradient-to-r from-emerald-600 to-violet-600 bg-clip-text text-transparent">
                         TASKFLUX
@@ -87,7 +87,7 @@ export default function Header() {
                             )}
                             {
                                 dropdownOpen && (
-                                    <div ref={dropdownRef} className="absolute right-0 mt-2 w-40 flex flex-col p-2 space-y-1 bg-white border-2 border-gray-300 rounded-lg shadow-lg z-50">
+                                    <div ref={dropdownRef} className="absolute right-0 mt-2 w-40 flex flex-col p-2 space-y-1 bg-white dark:bg-black border-2 border-gray-300 rounded-lg shadow-lg z-50">
                                         <div className="font-bold text-center">
                                             Hello {user.firstName}
                                         </div>

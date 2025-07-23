@@ -4,7 +4,7 @@ export default function FAQsection() {
     return (
         <section className="relative py-20 px-4 sm:px-8 md:px-16 w-full bg-white dark:bg-black overflow-hidden">
             <h2 className="text-3xl font-bold mb-10 text-center text-black dark:text-white">
-                Frequently Asked Questions – TaskFlux
+                Frequently Asked Questions - TaskFlux
             </h2>
 
             <Accordion type="single" collapsible className="max-w-2xl mx-auto">
@@ -13,7 +13,7 @@ export default function FAQsection() {
                     <AccordionContent>
                         TaskFlux is a visual workflow builder where you can drag and connect
                         predefined nodes (blocks) on a canvas to build automations. Think of
-                        it like laying out logic flows using boxes and wires – no code
+                        it like laying out logic flows using boxes and wires - no code
                         needed.
                     </AccordionContent>
                 </AccordionItem>
@@ -29,7 +29,7 @@ export default function FAQsection() {
                 <AccordionItem value="item-3">
                     <AccordionTrigger>Is TaskFlux free?</AccordionTrigger>
                     <AccordionContent>
-                        Yes! TaskFlux is free to use for up to 5 workflows per user. You can
+                        Yes! TaskFlux is free to use for up to 2 workflows per user. You can
                         create, edit, and execute these workflows without any charge.
                         <br />
                         <br />

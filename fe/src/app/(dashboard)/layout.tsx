@@ -14,6 +14,7 @@ import { logoutCurrentUser } from "@/utils/logoutUser";
 import { useRouter } from "next/navigation";
 import { LoaderFour } from "@/components/ui/loader";
 import Image from "next/image";
+import { Plus } from "lucide-react";
 
 
 export default function UserLayout({ children }: { children: React.ReactNode }) {
@@ -40,6 +41,13 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
             href: "/dashboard",
             icon: (
                 <IconBrandTabler className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+            ),
+        },
+        {
+            label: "New Workflow",
+            href: "/new",
+            icon: (
+                <Plus className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
             ),
         },
         {

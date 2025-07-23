@@ -20,7 +20,7 @@ export default function SettingsPage() {
     if (!user) return null;
     
     return (
-        <div className="p-6">
+        <div className="p-6 bg-white dark:bg-black min-h-screen">
             <div className="flex items-center space-x-5 mb-6">
                 <div className="p-4 text-white border bg-emerald-600 rounded-xl">
                     <Settings />

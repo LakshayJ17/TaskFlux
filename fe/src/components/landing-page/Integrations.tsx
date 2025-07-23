@@ -34,8 +34,8 @@ export default function IntegrationsMarquee() {
                 key={idx}
                 className="flex flex-col items-center space-y-2 p-4 min-w-[120px]"
               >
-                <div className="text-gray-600 dark:text-[#99E1D9]">{integration.icon}</div>
-                <span className="text-base font-medium text-gray-700 dark:text-[#FCFFFF]">
+                <div className="text-gray-600 dark:text-emerald-600">{integration.icon}</div>
+                <span className="text-base font-medium text-gray-700 dark:text-emerald-500">
                   {integration.name}
                 </span>
               </div>

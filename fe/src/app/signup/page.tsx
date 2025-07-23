@@ -198,7 +198,7 @@ export default function SignupPage() {
                 {showConfirmPassword ? <EyeOff className="w-5 h-5 text-purple-400" /> : <Eye className="w-5 h-5 text-purple-400" />}
               </span>
             </div>
-            <Button className="w-full mt-5 bg-purple-600 hover:bg-purple-700 hover:ring-purple-700 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:hover:ring-emerald-700" type="submit">Sign Up</Button>
+            <Button className="w-full mt-5 bg-gradient-to-br from-purple-400/90 via-purple-700/90 to-purple-600/90 hover:from-purple-400 hover:via-purple-700 hover:to-purple-600 text-white hover:ring-purple-700 dark:bg-gradient-to-br dark:from-emerald-400/90 dark:via-emerald-700/90 dark:to-emerald-600/90 dark:hover:from-emerald-400 dark:hover:via-emerald-700 dark:hover:to-emerald-600 dark:hover:ring-emerald-700" type="submit">Sign Up</Button>
           </form>
           
           <div className="flex items-center my-6">

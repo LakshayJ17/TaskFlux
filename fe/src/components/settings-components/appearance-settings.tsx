@@ -4,9 +4,9 @@ import { useTheme } from "next-themes";
 export default function AppearanceSettings() {
     const { theme, setTheme } = useTheme();
     return (
-        <div className="border rounded-t-xl">
-            <div>
-                <div className="border-b p-5">
+        <div className="animate-fade-in delay-400">
+            <div className="rounded-t-xl border">
+                <div className="border-b p-5 bg-emerald-300 dark:bg-emerald-900 rounded-t-xl">
                     <div className="flex items-center font-semibold space-x-3">
                         <Sun />
                         <h1 className="text-xl pb-1">Theme Preferences</h1>

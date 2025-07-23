@@ -13,7 +13,7 @@ type Integration = {
     id: string;
     name: string;
     status: "CONNECTED" | "DISCONNECTED";
-    icon: React.ReactNode; // or a string for icon name
+    icon: React.ReactNode;
 };
 
 const items: Integration[] = [
@@ -39,7 +39,7 @@ const items: Integration[] = [
         id: "mailchimp",
         name: "Mailchimp",
         status: "DISCONNECTED",
-        icon: <Mail />, // You can use a Lucide icon for demo
+        icon: <Mail />, 
     },
 ];
 
@@ -62,10 +62,13 @@ export default function ProfilePage() {
     }).format(new Date(user.created_at));
 
     return (
-        <div className="animate-fade-in h-screen bg-gray-300/10 delay-400 max-h-[100vh] px-10 pt-10">
+        <div className="min-h-screen bg-gray-300/10 dark:bg-black px-10 py-12 relative">
+            <div className="absolute inset-0">
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#10b98120_1px,transparent_1px),linear-gradient(to_bottom,#10b98120_1px,transparent_1px)] bg-[size:75px_75px]"></div>
+            </div>
             <div className="flex gap-8">
-                <div className="basis-1/4 space-y-5">
-                    <div className="border bg-white dark:bg-black rounded-xl flex flex-col items-center justify-center p-8 shadow">
+                <div className="relative animate-fade-in delay-400 basis-1/4 space-y-5">
+                    <div className="border bg-white dark:bg-black rounded-xl flex flex-col items-center justify-center p-8 shadow-lg hover:shadow-xl dark:shadow-purple-500/20 transition-shadow">
                         <div className="mb-4">
                             {user.google_picture ? (
                                 <Image
@@ -99,7 +102,7 @@ export default function ProfilePage() {
                             </div>
                         </div>
 
-                        <Button onClick={() => router.push('/settings')} className="flex bg-gradient-to-r from-emerald-800 to-emerald-400 hover:from-emerald-900 hover:to-emerald-600 w-2xs mt-5 cursor-pointer py-5">
+                        <Button onClick={() => router.push('/settings')} className="flex bg-gradient-to-br from-emerald-400/90 via-emerald-700/90 to-emerald-600/90 hover:from-emerald-400 hover:via-emerald-700 hover:to-emerald-600 text-white w-2xs mt-5 cursor-pointer py-5">
                             <Edit />
                             Edit Profile
                         </Button>
@@ -107,38 +110,38 @@ export default function ProfilePage() {
 
                     {/* <div className="h-px bg-gray-300 hover:bg-purple-500 shadow-2xl" /> */}
 
-                    <div className="border bg-white dark:bg-black rounded-xl flex flex-col items-center justify-center p-8 shadow">
+                    <div className="border bg-white dark:bg-black rounded-xl flex flex-col items-center justify-center p-8 shadow-lg hover:shadow-xl dark:shadow-emerald-500/20 transition-shadow">
                         <div className="text-xl font-semibold mb-5">
                             Quick Actions
                         </div>
 
                         <div className="space-y-2 w-full">
-                            <Link href={'/new-workflow'} className="flex gap-3 p-3 border rounded-lg text-gray-800 text-light hover:bg-emerald-500 dark:text-white dark:hover:bg-emerald-800 shadow"><Plus /> New WorkFlow</Link>
-                            <Link href={'/integrations'} className="flex gap-3 p-3 border rounded-lg text-gray-800 text-light hover:bg-emerald-500 dark:text-white dark:hover:bg-emerald-800 shadow"><Link2 />Add Integrations</Link>
-                            <Link href={'/pricing'} className="flex gap-3 p-3 border rounded-lg text-gray-800 text-light hover:bg-emerald-500 dark:text-white dark:hover:bg-emerald-800 shadow"><Stars className="text-yellow-500" /> Upgrade to Plus</Link>
+                            <Link href={'/new'} className="flex gap-3 p-3 border rounded-lg text-gray-800 text-light hover:bg-emerald-500 dark:text-white dark:hover:bg-emerald-800 shadow-md hover:shadow-lg transition-shadow"><Plus /> New WorkFlow</Link>
+                            <Link href={'/integrations'} className="flex gap-3 p-3 border rounded-lg text-gray-800 text-light hover:bg-emerald-500 dark:text-white dark:hover:bg-emerald-800 shadow-md hover:shadow-lg transition-shadow"><Link2 />Add Integrations</Link>
+                            <Link href={'/pricing'} className="flex gap-3 p-3 border rounded-lg text-gray-800 text-light hover:bg-emerald-500 dark:text-white dark:hover:bg-emerald-800 shadow-md hover:shadow-lg transition-shadow"><Stars className="text-yellow-500" /> Upgrade to Plus</Link>
                         </div>
                     </div>
                 </div>
 
                 {/* <div className="w-px bg-gray-300 mx-2 hover:bg-purple-500 shadow-2xl" /> */}
 
-                <div className="basis-3/4 flex flex-col space-y-6">
+                <div className="relative animate-fade-in delay-400 basis-3/4 flex flex-col space-y-6">
                     <div className="flex basis-1/5 gap-3">
-                        <div className="basis-1/3 bg-white dark:bg-black rounded-xl border shadow flex justify-around items-center p-4 min-h-[90px]">
+                        <div className="basis-1/3 bg-white dark:bg-black rounded-xl border shadow-lg hover:shadow-xl dark:shadow-purple-500/20 transition-shadow flex justify-around items-center p-4 min-h-[90px]">
                             <div className="border rounded-2xl text-white bg-purple-500 p-3"><GitFork size={20} /></div>
                             <div>
                                 <div className="text-base font-bold">100</div>
                                 <div className="text-sm font-semibold text-gray-500">Workflows Created</div>
                             </div>
                         </div>
-                        <div className="basis-1/3 bg-white dark:bg-black rounded-xl border shadow flex justify-around items-center p-4 min-h-[90px]">
+                        <div className="basis-1/3 bg-white dark:bg-black rounded-xl border shadow-lg hover:shadow-xl dark:shadow-purple-500/20 transition-shadow flex justify-around items-center p-4 min-h-[90px]">
                             <div className="border rounded-2xl text-white bg-purple-500 p-3"><IconLink size={20} /></div>
                             <div>
                                 <div className="text-base font-bold">10</div>
                                 <div className="text-sm font-semibold text-gray-500">Total Integrations</div>
                             </div>
                         </div>
-                        <div className="basis-1/3 bg-white dark:bg-black rounded-xl border shadow flex justify-around items-center p-4 min-h-[90px]">
+                        <div className="basis-1/3 bg-white dark:bg-black rounded-xl border shadow-lg hover:shadow-xl dark:shadow-purple-500/20 transition-shadow flex justify-around items-center p-4 min-h-[90px]">
                             <div className="border rounded-2xl text-white bg-purple-500 p-3"><Play size={20} /></div>
                             <div>
                                 <div className="text-base font-bold">10</div>
@@ -149,17 +152,17 @@ export default function ProfilePage() {
 
                     {/* <div className="h-px bg-gray-300 hover:bg-purple-500 shadow-2xl" /> */}
 
-                    <div className="basis-4/5 border rounded-xl shadow bg-white dark:bg-black">
+                    <div className="basis-4/5 border rounded-xl shadow-lg hover:shadow-xl dark:shadow-emerald-500/20 transition-shadow bg-white dark:bg-black">
                         <div className="flex justify-between px-6 py-6 border-b bg-gray-300/20 rounded-t-xl items-center ">
                             <div className="font-semibold text-xl">Connected Integrations</div>
-                            <Button className="flex bg-gradient-to-r from-emerald-800 to-emerald-400 hover:from-emerald-900 hover:to-emerald-600 w-4xs cursor-pointer py-3 px-4 text-sm"> <Plus size={18} /> Add Integration </Button>
+                            <Button className="flex bg-gradient-to-br from-emerald-400/90 via-emerald-700/90 to-emerald-600/90 hover:from-emerald-400 hover:via-emerald-700 hover:to-emerald-600 text-white w-4xs cursor-pointer py-3 px-4 text-sm"> <Plus size={18} /> Add Integration </Button>
                         </div>
                         <div className="grid grid-cols-3 gap-3 p-4 max-h-[400px] overflow-y-auto dark:text-black">
                             {items.map((item: Integration) => (
                                 <div
                                     key={item.id}
                                     className={`
-                                        rounded-xl p-4 flex flex-col gap-2 border shadow min-h-[90px]
+                                        rounded-xl p-4 flex flex-col gap-2 border shadow-md hover:shadow-lg transition-shadow min-h-[90px]
                                         ${item.status === "CONNECTED" ? "bg-emerald-50 dark:bg-emerald-500 border-emerald-300" : "bg-white border-red-300 dark:bg-red-400"}
                                     `}
                                 >

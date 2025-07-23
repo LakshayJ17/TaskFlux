@@ -19,7 +19,7 @@ export default function Dashboard() {
     if (!user) return null;
 
     return (
-        <div className="animate-fade-in delay-400 px-10 mt-10">
+        <div className="min-h-screen px-10 py-10 bg-white dark:bg-black">
             <div className="text-4xl font-bold mb-8">
                 Hello, {user.firstName}! Welcome to Your Dashboard
             </div>
@@ -33,7 +33,7 @@ export default function Dashboard() {
                 </Button>
             </div>
 
-            <div className="bg-gray-400/20 flex flex-1 justify-between mt-5 px-10 py-3 border rounded-xl">
+            <div className="animate-fade-in delay-400 bg-gray-400/20 flex flex-1 justify-between mt-5 px-10 py-3 border rounded-xl">
                 <div>Sr. No</div>
                 <div>Name</div>
                 <div>Created On</div>
