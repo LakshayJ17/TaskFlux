@@ -8,9 +8,11 @@ import { useAuthIfNotLoggedIn } from "@/hooks/useAuthIfNotLoggedIn";
 import { IconRobotFace } from "@tabler/icons-react";
 import { ArrowRight, Crown, MessageSquare, Mic, Plus, Stars, WorkflowIcon, Move, Settings, GitBranch, BookOpenCheck } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function New() {
     const { user, loading, error } = useAuthIfNotLoggedIn();
+    const router = useRouter();
 
     if (loading) return (
         <div className="flex items-center justify-center h-[100vh] w-full">
@@ -21,17 +23,16 @@ export default function New() {
     if (!user) return null;
 
     return (
-        <div className="w-full min-h-screen relative">
+        <div className="w-full min-h-screen relative bg-white dark:bg-black">
             <div className="absolute inset-0">
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#10b98120_1px,transparent_1px),linear-gradient(to_bottom,#10b98120_1px,transparent_1px)] bg-[size:75px_75px]"></div>
             </div>
             <Header />
-            <div className="w-full flex-col flex items-center justify-center bg-white dark:bg-black px-4">
+            <div className="w-full flex-col flex items-center justify-center px-4 py-4 md:py-10">
                 <div className="animate-fade-in delay-400 flex flex-col items-center w-full md:w-1/2 text-center">
-                    <h1 className="text-4xl font-bold">Create New WorkFlow</h1>
-                    <p className="text-center mt-2">
-                        Choose how you&apos;d like to build your workflow. Create manually with
-                        full control, or let FluxBot AI help you build it faster.
+                    <h1 className="pb-4 sm:pb-0 text-3xl sm:text-5xl font-bold">Create New WorkFlow</h1>
+                    <p className="text-md sm:text-lg text-center mt-2">
+                        Choose how you&apos;d like to build your workflow.
                     </p>
                 </div>
 
@@ -66,33 +67,55 @@ export default function New() {
                             </div>
                         </div>
 
-                        <div className="mt-6 border-2 bg-gray-950/80 rounded-lg p-5 space-y-3">
-                            <div className="flex justify-between">
-                                <p className="text-white">Free Plan</p>
-                                <Badge className="bg-purple-500 py-1.5 text-white w-24 text-center">
-                                    2 workflows
-                                </Badge>
-                            </div>
-                            <div className="flex justify-between">
-                                <p className="text-white">Plus Plan</p>
-                                <Badge className="bg-gradient-to-r py-1.5 from-emerald-500 to-purple-500 w-24 text-center border-emerald-600/80">
-                                    Unlimited
-                                </Badge>
+                        {user.is_premium ?
+                            <div className="mt-6 border-2 bg-gray-950/80 rounded-lg p-5 space-y-3">
+                                <div className="flex items-center gap-2 text-yellow-400 text-sm">
+                                    <Crown className="size-4" /> Unlimited Workflows unlocked
+                                </div>
                             </div>
 
-                            <div className="flex items-center gap-2 text-yellow-400 text-sm pt-2">
-                                <Crown className="size-4" /> Upgrade to Plus for unlimited workflows
-                            </div>
-                        </div>
+                            :
+                            <div className="mt-6 border-2 bg-gray-950/80 rounded-lg p-5 space-y-3">
+                                <div className="flex justify-between">
+                                    <p className="text-white">Free Plan</p>
+                                    <Badge className="bg-purple-500 py-1.5 text-white w-26 text-center">
+                                        {2 - user.manual_workflow_count}{(2 - user.manual_workflow_count) === 1 ? <p>workflow left</p> : <p>workflows left</p>}
+                                    </Badge>
+                                </div>
+                                {/* <div className="flex justify-between">
+                                    <p className="text-white">Plus Plan</p>
+                                    <Badge className="bg-gradient-to-r py-1.5 from-emerald-500 to-purple-500 w-24 text-center border-emerald-600/80">
+                                        Unlimited
+                                    </Badge>
+                                </div> */}
 
-                        <Button
-                            size={"lg"}
-                            className="flex justify-center gap-2 items-center rounded-xl py-6 w-full mt-5 cursor-pointer bg-gradient-to-br from-emerald-400/90 via-emerald-700/90 to-emerald-600/90 hover:from-emerald-400 hover:via-emerald-700 hover:to-emerald-600 text-white"
-                        >
-                            <Plus />
-                            Create Manual Workflow
-                            <ArrowRight />
-                        </Button>
+                                <div className="flex items-center gap-2 text-yellow-400 text-sm pt-2">
+                                    <Crown className="size-4" /> Upgrade to Plus for unlimited workflows
+                                </div>
+                            </div>
+                        }
+
+                        {!user.is_premium && user.manual_workflow_count == 2 ?
+                            <Button
+                                onClick={() => router.push('/pricing')}
+                                size={"lg"}
+                                className="flex justify-center gap-2 items-center rounded-xl py-6 w-full mt-5 cursor-pointer bg-yellow-400"
+                            >
+                                <Crown />
+                                Upgrade to Premium to continue
+                                <ArrowRight />
+                            </Button>
+                            :
+                            <Button
+                                size={"lg"}
+                                className="flex justify-center gap-2 items-center rounded-xl py-6 w-full mt-5 cursor-pointer bg-gradient-to-br from-emerald-400/90 via-emerald-700/90 to-emerald-600/90 hover:from-emerald-400 hover:via-emerald-700 hover:to-emerald-600 text-white"
+                            >
+                                <Plus />
+                                Create Manual Workflow
+                                <ArrowRight />
+                            </Button>
+                        }
+
                     </div>
 
 
@@ -104,7 +127,7 @@ export default function New() {
                                     FluxBot AI
                                     <Badge className="gap-1 bg-yellow-500/90 text-black">
                                         <Crown className="size-4" />
-                                        Premium
+                                        Plus
                                     </Badge>
                                 </div>
                                 <div className="text-sm text-gray-500 dark:text-gray-300">
@@ -132,33 +155,54 @@ export default function New() {
                             </div>
                         </div>
 
-                        <div className="mt-6 border-2 bg-gray-950/80 rounded-lg p-5 space-y-3">
-                            <div className="flex justify-between">
-                                <p className="text-white">Free Plan</p>
-                                <Badge className="bg-emerald-500 py-1.5 text-white w-24 text-center">
-                                    1 workflow
-                                </Badge>
+                        {user.is_premium ?
+                            <div className="mt-6 border-2 bg-gray-950/80 rounded-lg p-5 space-y-3">
+                                <div className="flex items-center gap-2 text-yellow-400 text-sm">
+                                    <Crown className="size-4" /> Unlimited AI Workflows unlocked
+                                </div>
                             </div>
-                            <div className="flex justify-between">
-                                <p className="text-white">Plus Plan</p>
-                                <Badge className="bg-gradient-to-r py-1.5 from-emerald-500 to-purple-500 w-24 text-center border-purple-600/80">
-                                    Unlimited
-                                </Badge>
-                            </div>
+                            :
+                            <div className="mt-6 border-2 bg-gray-950/80 rounded-lg p-5 space-y-3">
+                                <div className="flex justify-between">
+                                    <p className="text-white">Free Plan</p>
+                                    <Badge className="bg-emerald-500 py-1.5 text-white w-26 text-center">
+                                        {1 - user.ai_workflow_count} {(1 - user.ai_workflow_count) === 1 ? "workflow left" : "workflows left"}
+                                    </Badge>
+                                </div>
+                                {/* <div className="flex justify-between">
+                                    <p className="text-white">Plus Plan</p>
+                                    <Badge className="bg-gradient-to-r py-1.5 from-emerald-500 to-purple-500 w-24 text-center border-purple-600/80">
+                                        Unlimited
+                                    </Badge>
+                                </div> */}
 
-                            <div className="flex items-center gap-2 text-yellow-400 text-sm pt-2">
-                                <Crown className="size-4" /> Upgrade to Plus for unlimited AI workflows
+                                <div className="flex items-center gap-2 text-yellow-400 text-sm pt-2">
+                                    <Crown className="size-4" /> Upgrade to Plus for unlimited AI workflows
+                                </div>
                             </div>
-                        </div>
+                        }
 
-                        <Button
-                            size={"lg"}
-                            className="flex justify-center gap-2 items-center rounded-xl py-6 w-full mt-5 cursor-pointer bg-gradient-to-br from-purple-400/90 via-purple-700/90 to-purple-600/90 hover:from-purple-400 hover:via-purple-700 hover:to-purple-600 text-white hover:ring:text-emerald-800"
-                        >
-                            <MessageSquare />
-                            Chat with FluxBot
-                            <ArrowRight />
-                        </Button>
+                        {!user.is_premium && user.ai_workflow_count == 1 ?
+                            <Button
+                                onClick={() => router.push('/pricing')}
+                                size={"lg"}
+                                className="flex justify-center gap-2 items-center rounded-xl py-6 w-full mt-5 cursor-pointer bg-yellow-400"
+                            >
+                                <Crown />
+                                Upgrade to Premium to continue
+                                <ArrowRight />
+                            </Button>
+                            :
+                            <Button
+                                size={"lg"}
+                                className="flex justify-center gap-2 items-center rounded-xl py-6 w-full mt-5 cursor-pointer bg-gradient-to-br from-purple-400/90 via-purple-700/90 to-purple-600/90 hover:from-purple-400 hover:via-purple-700 hover:to-purple-600 text-white hover:ring:text-emerald-800"
+                            >
+                                <MessageSquare />
+                                Chat with FluxBot
+                                <ArrowRight />
+                            </Button>
+                        }
+
                     </div>
                 </div>
             </div>

@@ -128,7 +128,10 @@ async def signup(user_data : UserCreate):
         "updated_at" : now,
         "is_active" : True,
         "is_premium" : False,
-        "auth_provider": "taskflux"
+        "auth_provider": "taskflux",
+        "manual_workflow_count" : 0,
+        "ai_workflow_count" : 0,
+        "total_workflow_count" : 0,
     }
 
     result = await db.users.insert_one(user_doc)
@@ -214,8 +217,12 @@ async def get_current_user_info(current_user: dict = Depends(get_current_user)):
         "is_active": current_user.get("is_active", True),
         "is_premium" : current_user.get("is_premium", False),
         "google_picture"  : current_user.get("google_picture"),
-        "auth_provider": current_user.get("auth_provider")
+        "auth_provider": current_user.get("auth_provider"),
+        "manual_workflow_count" : current_user.get("manual_workflow_count", 0),
+        "ai_workflow_count" : current_user.get("ai_workflow_count", 0),
+        "total_workflow_count" : current_user.get("total_workflow_count", 0)
     }
+
 
 @router.patch("/me", response_model=dict)
 async def update_user(updated_data : UpdateUserSchema , current_user: dict = Depends(get_current_user)  ):
@@ -324,7 +331,10 @@ async def google_auth(payload: dict):
                 "is_premium" : False,
                 "google_picture": picture,
                 "google_id": idinfo.get("sub"),
-                "auth_provider": "google"
+                "auth_provider": "google",
+                "manual_workflow_count" : 0,
+                "ai_workflow_count" : 0,
+                "total_workflow_count" : 0,
             }
             result = await db.users.insert_one(user_doc)
             user_id = result.inserted_id

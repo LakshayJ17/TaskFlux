@@ -24,6 +24,9 @@ class UserResponse(BaseModel):
     google_picture: Optional[str] = None
     google_id: Optional[str] = None
     auth_provider: Optional[str] = None
+    manual_workflow_count: int = 0
+    ai_workflow_count: int = 0
+    total_workflow_count: int = 0
 
 class UpdateUserSchema(BaseModel):
     firstName : Optional[str] = None

@@ -1,10 +1,11 @@
 "use client"
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { LoaderFour } from "@/components/ui/loader";
 import { useAuthIfNotLoggedIn } from "@/hooks/useAuthIfNotLoggedIn"
 import { IconLink } from "@tabler/icons-react";
-import { Calendar, Edit, GitFork, Link2, Mail, Play, Plus, Stars } from "lucide-react";
+import { Calendar, Crown, Edit, GitFork, Link2, Mail, Play, Plus, Stars } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -39,7 +40,7 @@ const items: Integration[] = [
         id: "mailchimp",
         name: "Mailchimp",
         status: "DISCONNECTED",
-        icon: <Mail />, 
+        icon: <Mail />,
     },
 ];
 
@@ -86,11 +87,19 @@ export default function ProfilePage() {
                             )}
                         </div>
 
-                        <div className="flex text-2xl font-semibold mb-3">
-                            {user.firstName} {user.lastName}
-                        </div>
+                        {user.is_premium ?
+                            <div className="flex items-center justify-center text-2xl gap-5 font-semibold mb-3">
+                                {user.firstName} {user.lastName}
+                                <Badge className="text-sm px-5 rounded-2xl text-black bg-yellow-400"><Crown /> Plus</Badge>
+                            </div>
+                            :
+                            <div className="flex text-2xl font-semibold mb-3">
+                                {user.firstName} {user.lastName}
+                            </div>
+                        }
 
-                        <div className="space-y-2 text-gray-600 dark:text-white">
+
+                        <div className="flex justify-items-start flex-col space-y-2 text-gray-600 dark:text-white">
                             <div className="flex gap-5">
                                 <Mail />
                                 {user.email}
@@ -130,7 +139,7 @@ export default function ProfilePage() {
                         <div className="basis-1/3 bg-white dark:bg-black rounded-xl border shadow-lg hover:shadow-xl dark:shadow-purple-500/20 transition-shadow flex justify-around items-center p-4 min-h-[90px]">
                             <div className="border rounded-2xl text-white bg-purple-500 p-3"><GitFork size={20} /></div>
                             <div>
-                                <div className="text-base font-bold">100</div>
+                                <div className="text-base font-bold">{user.total_workflow_count}</div>
                                 <div className="text-sm font-semibold text-gray-500">Workflows Created</div>
                             </div>
                         </div>
