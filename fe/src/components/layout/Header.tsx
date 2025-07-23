@@ -1,13 +1,14 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-import { LogOutIcon, User2Icon, Zap } from "lucide-react"
+import { LogOutIcon, User2Icon } from "lucide-react"
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { logoutCurrentUser } from "@/utils/logoutUser";
 import { Separator } from "../ui/separator";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import Image from "next/image";
 
 export default function Header() {
     const { user } = useCurrentUser();
@@ -33,13 +34,13 @@ export default function Header() {
     }, [dropdownOpen])
 
     return (
-        <header className="h-20 border-b border-gray-200 bg-white sticky top-0 z-50 px-3 md:px-6 py-5 min-w-full dark:bg-black dark:border-b-gray-900">
-            <div className="container mx-auto flex items-center justify-between">
+        <header className="w-full h-20 flex justify-center items-center border-b-gray-400 bg-white sticky top-0 z-50 px-3 md:px-6 py-5 min-w-full dark:bg-black dark:border-b-gray-900">
+            <div className="w-full flex items-center justify-between">
                 <Link href={'/'} className="flex items-center gap-x-3">
-                    <img src="./taskflux-logo.png" className="h-12 w-12 rounded-lg" alt="TF-logo" />
+                    <Image width={60} height={60} className="rounded-lg" src="/taskflux-logo.png" alt="TaskFlux Logo" />
                     <div
                         className="text-xl sm:text-3xl font-bold bg-gradient-to-r from-emerald-600 to-violet-600 bg-clip-text text-transparent">
-                        TaskFlux
+                        TASKFLUX
                     </div>
                 </Link>
 
@@ -67,13 +68,14 @@ export default function Header() {
                 <div className="relative">
                     {user ? (
                         <>
-
                             {user.google_picture ? (
-                                <img
+                                <Image
+                                    width={30}
+                                    height={30}
                                     src={user.google_picture}
                                     alt="Profile"
                                     referrerPolicy="no-referrer"
-                                    className="w-8 h-8 rounded-full object-cover cursor-pointer"
+                                    className="rounded-full object-cover cursor-pointer"
                                     onClick={() => setDropdownOpen((open) => !open)}
                                 />
                             ) : (
@@ -132,7 +134,6 @@ export default function Header() {
                                 Get Started
                             </Button>
                         </div>
-
                     )}
                 </div>
             </div>

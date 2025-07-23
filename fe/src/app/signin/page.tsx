@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import ProcedureAnimation from "@/components/AuthAnimation/procedure-animation";
-import { Separator } from "@/components/ui/separator";
 import { useRedirectIfLoggedIn } from "@/hooks/useRedirectIfLoggedIn";
 import { Button } from "@/components/ui/stateful-button";
 import GLBViewer from "@/components/GLBViewer";

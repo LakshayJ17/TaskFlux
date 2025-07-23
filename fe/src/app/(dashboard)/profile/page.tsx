@@ -5,6 +5,7 @@ import { LoaderFour } from "@/components/ui/loader";
 import { useAuthIfNotLoggedIn } from "@/hooks/useAuthIfNotLoggedIn"
 import { IconLink } from "@tabler/icons-react";
 import { Calendar, Edit, GitFork, Link2, Mail, Play, Plus, Stars } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -54,6 +55,12 @@ export default function ProfilePage() {
     if (error) return <div>Error loading user</div>;
     if (!user) return null;
 
+    const joinedDate = new Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    }).format(new Date(user.created_at));
+
     return (
         <div className="animate-fade-in h-screen bg-gray-300/10 delay-400 max-h-[100vh] px-10 pt-10">
             <div className="flex gap-8">
@@ -61,7 +68,9 @@ export default function ProfilePage() {
                     <div className="border bg-white dark:bg-black rounded-xl flex flex-col items-center justify-center p-8 shadow">
                         <div className="mb-4">
                             {user.google_picture ? (
-                                <img
+                                <Image
+                                    width={30}
+                                    height={30}
                                     src={user.google_picture}
                                     referrerPolicy="no-referrer"
                                     alt="Profile"
@@ -86,7 +95,7 @@ export default function ProfilePage() {
 
                             <div className="flex gap-5">
                                 <Calendar />
-                                Joined {new Date(user.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+                                Joined {joinedDate}
                             </div>
                         </div>
 

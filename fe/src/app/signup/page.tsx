@@ -5,7 +5,6 @@ import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
 import ProcedureAnimation from "@/components/AuthAnimation/procedure-animation";
@@ -201,6 +200,7 @@ export default function SignupPage() {
             </div>
             <Button className="w-full mt-5 bg-purple-600 hover:bg-purple-700 hover:ring-purple-700 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:hover:ring-emerald-700" type="submit">Sign Up</Button>
           </form>
+          
           <div className="flex items-center my-6">
             <div className="flex-grow border-t border-emerald-700 dark:border-purple-700"></div>
             <span className="mx-4 text-emerald-800 dark:text-purple-200">Or continue with</span>

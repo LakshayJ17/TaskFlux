@@ -59,6 +59,7 @@ export default function SecuritySettings({ user }: { user: PasswordInterface }) 
       setNewPassword("");
       setConfirmNewPassword("");
     } catch (error) {
+      console.log(error)
       toast.error("Something went wrong");
     }
   };
@@ -80,6 +81,7 @@ export default function SecuritySettings({ user }: { user: PasswordInterface }) 
       localStorage.removeItem("token");
       window.location.href = "/";
     } catch (error) {
+      console.log(error)
       toast.error("Failed to delete account");
     } finally {
       setShowDeleteModal(false);

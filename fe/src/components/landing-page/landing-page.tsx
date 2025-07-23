@@ -3,43 +3,19 @@
 import { useCallback, useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import {
-  Users,
-  Shield,
-  Layers,
-  Clock,
-  BarChart3,
-  ArrowRight,
-  Mail,
-  MessageSquare,
-  Brain,
-  Database,
-} from "lucide-react"
-import {
-  ReactFlow,
-  Background,
-  useNodesState,
-  useEdgesState,
-  addEdge,
-  type Connection,
-  type Edge,
-  type Node,
-  BackgroundVariant,
-  Controls,
-  Handle,
-  Position,
-} from "@xyflow/react"
+import { Users, Shield, Layers, Clock, BarChart3, ArrowRight, Mail, MessageSquare, Brain, Database, } from "lucide-react"
+import { ReactFlow, Background, useNodesState, useEdgesState, addEdge, type Connection, type Edge, type Node, BackgroundVariant, Controls, Handle, Position, } from "@xyflow/react"
 import "@xyflow/react/dist/style.css"
 import Footer from "../layout/Footer"
 import Header from "../layout/Header"
 import IntegrationsMarquee from "./Integrations"
 import VideoDemo from "../demo/VideoDemo"
 import CTASection from "./CTA"
-import FreeSection from "./FreeSection"
-import FeaturesCarousel from "./FeaturesCarousel"
+// import FeaturesCarousel from "./FeaturesCarousel"
 import { Rocket } from "@/components/ui/Rocket"
 import { useRouter } from "next/navigation"
 import { useRedirectIfLoggedIn } from "@/hooks/useRedirectIfLoggedIn"
+import FAQsection from "./FAQsection"
 
 // Custom Node Components
 const CustomTriggerNode = ({ data }) => {
@@ -213,7 +189,7 @@ function HeroSection({ nodes, edges, onNodesChange, onEdgesChange, onConnect }) 
       className="relative pt-25 px-6 bg-gradient-to-br from-emerald-400/40 via-white to-violet-400/40 overflow-hidden dark:bg-gradient-to-r dark:from-emerald-950 dark:via-black dark:to-purple-950/40 animate-gradient"
 
     >
-      
+
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#10b98120_1px,transparent_1px),linear-gradient(to_bottom,#10b98120_1px,transparent_1px)] bg-[size:24px_24px]"></div>
       </div>
@@ -232,7 +208,7 @@ function HeroSection({ nodes, edges, onNodesChange, onEdgesChange, onConnect }) 
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in delay-400">
             <Button
-            onClick={() => router.push('/signup')}
+              onClick={() => router.push('/signup')}
               size="lg"
               className="cursor-pointer bg-violet-500 hover:bg-violet-600 text-white  p-6 text-lg transform transition-all duration-300 shadow-xl hover:shadow-2xl"
             >
@@ -301,7 +277,7 @@ export default function WorkflowLanding() {
   const [currentSlide, setCurrentSlide] = useState(0)
 
   useRedirectIfLoggedIn();
-  
+
   const onConnect = useCallback((params: Connection) => setEdges((eds) => addEdge(params, eds)), [setEdges])
 
   const features = [
@@ -377,15 +353,16 @@ export default function WorkflowLanding() {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
       />
-      <FreeSection />
-      <FeaturesCarousel
+      {/* <FreeSection /> */}
+      {/* <FeaturesCarousel
         features={features}
         currentSlide={currentSlide}
         prevSlide={prevSlide}
         nextSlide={nextSlide}
         goToSlide={goToSlide}
-      />
+      /> */}
       <VideoDemo />
+      <FAQsection />
       <IntegrationsMarquee />
       <CTASection email={email} setEmail={setEmail} />
       <Footer />

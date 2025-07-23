@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { logoutCurrentUser } from "@/utils/logoutUser";
 import { useRouter } from "next/navigation";
 import { LoaderFour } from "@/components/ui/loader";
+import Image from "next/image";
 
 
 export default function UserLayout({ children }: { children: React.ReactNode }) {
@@ -67,7 +68,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
                 <SidebarBody className="flex flex-col h-full justify-between gap-10">
                     <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
                         <div>
-                            {user.is_premium ? <img className="h-8 w-8 border shadow rounded-sm" src={"./taskflux-plus-logo.png"}></img> : <img className="h-10 w-10 border shadow rounded-sm" src={"./taskflux-logo.png"}></img>}
+                            {user.is_premium ? <Image width={40} height={40} alt="tfplus-logo" className="border shadow rounded-sm" src="/taskflux-plus-logo.png"></Image> : <Image width={40} height={40} alt="tf-logo" className="border shadow rounded-sm" src="/taskflux-logo.png"></Image>}
                         </div>
                         <div className="mt-8 flex flex-col gap-4">
                             {links.map((link, idx) => (
@@ -90,8 +91,10 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
                     <div className="flex flex-col gap-2 mb-4 items-center">
                         <div className="flex items-center gap-2">
                             {user.google_picture ? (
-                                <img
+                                <Image
                                     src={user.google_picture}
+                                    width={30}
+                                    height={30}
                                     referrerPolicy="no-referrer"
                                     alt="Profile"
                                     className="h-7 w-7 rounded-full object-cover border-2 border-purple-400 mb-1"

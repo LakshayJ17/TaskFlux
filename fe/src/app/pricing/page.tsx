@@ -2,10 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle, CreditCard, Gift, Key, Shield, Zap } from "lucide-react";
+import { CheckCircle, Gift, Shield, Zap } from "lucide-react";
 import Header from "../../components/layout/Header";
 import { useRouter } from "next/navigation";
-import { Accordion, AccordionContent, AccordionTrigger, AccordionItem  } from "@/components/ui/accordion";
+import { Accordion, AccordionContent, AccordionTrigger, AccordionItem } from "@/components/ui/accordion";
 
 
 export default function PricingSection() {
@@ -177,7 +177,7 @@ export default function PricingSection() {
                         </div>
                     </div> */}
 
-                    
+
                     <Accordion type="single" collapsible>
                         <AccordionItem value="item-1">
                             <AccordionTrigger>Is it accessible?</AccordionTrigger>

@@ -1,4 +1,4 @@
-import { Zap } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
@@ -8,7 +8,7 @@ export default function Footer() {
                 <div className="grid md:grid-cols-4 gap-8">
                     <div className="space-y-4">
                         <div className="flex items-center space-x-2">
-                            <img className="h-10 w-10 rounded-sm" src="./taskflux-logo.png" alt="" />
+                            <Image width={40} height={40} className="rounded-sm" src="/taskflux-logo.png" alt="tf-logo" />
                             <span className="text-xl font-semibold">TaskFlux</span>
                         </div>
                         <p className="text-gray-400">The free and open-source workflow automation platform.</p>
