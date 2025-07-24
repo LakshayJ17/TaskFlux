@@ -1,7 +1,13 @@
 from pydantic import BaseModel, Field
 from datetime import datetime
 from typing import List, Dict, Optional, Any
+from enum import Enum
 
+class WorkflowType(str, Enum):
+    MANUAL = "manual"
+    AI = "ai"
+
+class WorkflowStatus(str, Enum)
 class Node(BaseModel):
     id: str
     type: str

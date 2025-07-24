@@ -131,7 +131,8 @@ async def signup(user_data : UserCreate):
         "auth_provider": "taskflux",
         "manual_workflow_count" : 0,
         "ai_workflow_count" : 0,
-        "total_workflow_count" : 0,
+        "total_integrations" : 0,
+        "active_workflow_count" : 0
     }
 
     result = await db.users.insert_one(user_doc)
@@ -220,7 +221,8 @@ async def get_current_user_info(current_user: dict = Depends(get_current_user)):
         "auth_provider": current_user.get("auth_provider"),
         "manual_workflow_count" : current_user.get("manual_workflow_count", 0),
         "ai_workflow_count" : current_user.get("ai_workflow_count", 0),
-        "total_workflow_count" : current_user.get("total_workflow_count", 0)
+        "total_integrations" : current_user.get("total_integrations", 0),
+        "active_workflow_count" : current_user.get("active_workflow_count", 0)
     }
 
 
@@ -334,7 +336,8 @@ async def google_auth(payload: dict):
                 "auth_provider": "google",
                 "manual_workflow_count" : 0,
                 "ai_workflow_count" : 0,
-                "total_workflow_count" : 0,
+                "total_integrations" : 0,
+                "active_workflow_count" : 0
             }
             result = await db.users.insert_one(user_doc)
             user_id = result.inserted_id

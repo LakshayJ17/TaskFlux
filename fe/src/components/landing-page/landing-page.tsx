@@ -11,7 +11,7 @@ import Header from "../layout/Header"
 import IntegrationsMarquee from "./Integrations"
 import VideoDemo from "../demo/VideoDemo"
 import CTASection from "./CTA"
-// import FeaturesCarousel from "./FeaturesCarousel"
+import FeaturesCarousel from "./FeaturesCarousel"
 import { Rocket } from "@/components/ui/Rocket"
 import { useRouter } from "next/navigation"
 import { useRedirectIfLoggedIn } from "@/hooks/useRedirectIfLoggedIn"
@@ -360,6 +360,7 @@ export default function WorkflowLanding() {
         nextSlide={nextSlide}
         goToSlide={goToSlide}
       /> */}
+      <FeaturesCarousel />
       <VideoDemo />
       <FAQsection />
       <IntegrationsMarquee />

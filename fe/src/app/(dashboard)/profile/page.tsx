@@ -62,6 +62,8 @@ export default function ProfilePage() {
         day: 'numeric'
     }).format(new Date(user.created_at));
 
+    const totalWorkflows = (user.manual_workflow_count || 0) + (user.ai_workflow_count || 0);
+
     return (
         <div className="min-h-screen bg-gray-300/10 dark:bg-black px-10 py-12 relative">
             <div className="absolute inset-0">
@@ -87,17 +89,16 @@ export default function ProfilePage() {
                             )}
                         </div>
 
-                        {user.is_premium ?
+                        {user.is_premium ? (
                             <div className="flex items-center justify-center text-2xl gap-5 font-semibold mb-3">
                                 {user.firstName} {user.lastName}
                                 <Badge className="text-sm px-5 rounded-2xl text-black bg-yellow-400"><Crown /> Plus</Badge>
                             </div>
-                            :
+                        ) : (
                             <div className="flex text-2xl font-semibold mb-3">
                                 {user.firstName} {user.lastName}
                             </div>
-                        }
-
+                        )}
 
                         <div className="flex justify-items-start flex-col space-y-2 text-gray-600 dark:text-white">
                             <div className="flex gap-5">
@@ -117,8 +118,6 @@ export default function ProfilePage() {
                         </Button>
                     </div>
 
-                    {/* <div className="h-px bg-gray-300 hover:bg-purple-500 shadow-2xl" /> */}
-
                     <div className="border bg-white dark:bg-black rounded-xl flex flex-col items-center justify-center p-8 shadow-lg hover:shadow-xl dark:shadow-emerald-500/20 transition-shadow">
                         <div className="text-xl font-semibold mb-5">
                             Quick Actions
@@ -132,34 +131,30 @@ export default function ProfilePage() {
                     </div>
                 </div>
 
-                {/* <div className="w-px bg-gray-300 mx-2 hover:bg-purple-500 shadow-2xl" /> */}
-
                 <div className="relative animate-fade-in delay-400 basis-3/4 flex flex-col space-y-6">
                     <div className="flex basis-1/5 gap-3">
                         <div className="basis-1/3 bg-white dark:bg-black rounded-xl border shadow-lg hover:shadow-xl dark:shadow-purple-500/20 transition-shadow flex justify-around items-center p-4 min-h-[90px]">
                             <div className="border rounded-2xl text-white bg-purple-500 p-3"><GitFork size={20} /></div>
                             <div>
-                                <div className="text-base font-bold">{user.total_workflow_count}</div>
+                                <div className="text-base font-bold">{totalWorkflows}</div>
                                 <div className="text-sm font-semibold text-gray-500">Workflows Created</div>
                             </div>
                         </div>
                         <div className="basis-1/3 bg-white dark:bg-black rounded-xl border shadow-lg hover:shadow-xl dark:shadow-purple-500/20 transition-shadow flex justify-around items-center p-4 min-h-[90px]">
                             <div className="border rounded-2xl text-white bg-purple-500 p-3"><IconLink size={20} /></div>
                             <div>
-                                <div className="text-base font-bold">10</div>
+                                <div className="text-base font-bold">{user.total_integrations || 0}</div>
                                 <div className="text-sm font-semibold text-gray-500">Total Integrations</div>
                             </div>
                         </div>
                         <div className="basis-1/3 bg-white dark:bg-black rounded-xl border shadow-lg hover:shadow-xl dark:shadow-purple-500/20 transition-shadow flex justify-around items-center p-4 min-h-[90px]">
                             <div className="border rounded-2xl text-white bg-purple-500 p-3"><Play size={20} /></div>
                             <div>
-                                <div className="text-base font-bold">10</div>
+                                <div className="text-base font-bold">{user.active_workflow_count || 0}</div>
                                 <div className="text-sm font-semibold text-gray-500">Active Workflows</div>
                             </div>
                         </div>
                     </div>
-
-                    {/* <div className="h-px bg-gray-300 hover:bg-purple-500 shadow-2xl" /> */}
 
                     <div className="basis-4/5 border rounded-xl shadow-lg hover:shadow-xl dark:shadow-emerald-500/20 transition-shadow bg-white dark:bg-black">
                         <div className="flex justify-between px-6 py-6 border-b bg-gray-300/20 rounded-t-xl items-center ">

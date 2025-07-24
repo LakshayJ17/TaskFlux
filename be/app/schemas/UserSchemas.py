@@ -26,7 +26,8 @@ class UserResponse(BaseModel):
     auth_provider: Optional[str] = None
     manual_workflow_count: int = 0
     ai_workflow_count: int = 0
-    total_workflow_count: int = 0
+    total_integrations : int = 0
+    active_workflow_count : int = 0
 
 class UpdateUserSchema(BaseModel):
     firstName : Optional[str] = None

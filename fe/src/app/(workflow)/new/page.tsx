@@ -9,6 +9,7 @@ import { IconRobotFace } from "@tabler/icons-react";
 import { ArrowRight, Crown, MessageSquare, Mic, Plus, Stars, WorkflowIcon, Move, Settings, GitBranch, BookOpenCheck } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { v4 as uuidv4 } from 'uuid'
 
 export default function New() {
     const { user, loading, error } = useAuthIfNotLoggedIn();
@@ -28,7 +29,7 @@ export default function New() {
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#10b98120_1px,transparent_1px),linear-gradient(to_bottom,#10b98120_1px,transparent_1px)] bg-[size:75px_75px]"></div>
             </div>
             <Header />
-            <div className="w-full flex-col flex items-center justify-center px-4 py-4 md:py-10">
+            <div className="w-full flex-col flex items-center justify-center px-4 py-4 md:py-8">
                 <div className="animate-fade-in delay-400 flex flex-col items-center w-full md:w-1/2 text-center">
                     <h1 className="pb-4 sm:pb-0 text-3xl sm:text-5xl font-bold">Create New WorkFlow</h1>
                     <p className="text-md sm:text-lg text-center mt-2">
@@ -73,7 +74,6 @@ export default function New() {
                                     <Crown className="size-4" /> Unlimited Workflows unlocked
                                 </div>
                             </div>
-
                             :
                             <div className="mt-6 border-2 bg-gray-950/80 rounded-lg p-5 space-y-3">
                                 <div className="flex justify-between">
@@ -107,6 +107,10 @@ export default function New() {
                             </Button>
                             :
                             <Button
+                                onClick={() => {
+                                    const id = uuidv4();
+                                    router.push(`/new/workflow/${id}`)
+                                }}
                                 size={"lg"}
                                 className="flex justify-center gap-2 items-center rounded-xl py-6 w-full mt-5 cursor-pointer bg-gradient-to-br from-emerald-400/90 via-emerald-700/90 to-emerald-600/90 hover:from-emerald-400 hover:via-emerald-700 hover:to-emerald-600 text-white"
                             >
@@ -194,6 +198,10 @@ export default function New() {
                             </Button>
                             :
                             <Button
+                                onClick={() => {
+                                    const id = uuidv4();
+                                    router.push(`/new/ai-workflow/${id}`)
+                                }}
                                 size={"lg"}
                                 className="flex justify-center gap-2 items-center rounded-xl py-6 w-full mt-5 cursor-pointer bg-gradient-to-br from-purple-400/90 via-purple-700/90 to-purple-600/90 hover:from-purple-400 hover:via-purple-700 hover:to-purple-600 text-white hover:ring:text-emerald-800"
                             >
