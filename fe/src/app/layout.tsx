@@ -4,6 +4,7 @@ import "./globals.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "next-themes";
+import { AuthProvider } from "@/context/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TaskFlux"
+  title: "TaskFlux",
 };
 
 export default function RootLayout({
@@ -24,9 +25,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "";
-  
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -34,8 +34,10 @@ export default function RootLayout({
       >
         <GoogleOAuthProvider clientId={clientId}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            {children}
-            <Toaster position="top-right" />
+            <AuthProvider> 
+              {children}
+              <Toaster position="top-right" />
+            </AuthProvider>
           </ThemeProvider>
         </GoogleOAuthProvider>
       </body>

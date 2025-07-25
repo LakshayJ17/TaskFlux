@@ -23,7 +23,7 @@ class UserResponse(BaseModel):
     is_premium : bool = False
     google_picture: Optional[str] = None
     google_id: Optional[str] = None
-    auth_provider: Optional[str] = None
+    auth_provider: str
     manual_workflow_count: int = 0
     ai_workflow_count: int = 0
     total_integrations : int = 0

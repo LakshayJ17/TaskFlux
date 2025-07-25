@@ -11,14 +11,15 @@ import ProcedureAnimation from "@/components/AuthAnimation/procedure-animation";
 import { useRedirectIfLoggedIn } from "@/hooks/useRedirectIfLoggedIn";
 import { Button } from "@/components/ui/stateful-button";
 import GLBViewer from "@/components/GLBViewer";
+import { useAuth } from "@/context/AuthContext";
 
 export default function SigninPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [showAnimation, setShowAnimation] = useState(false);
   const router = useRouter();
+  const { refetchUser } = useAuth()
 
   useRedirectIfLoggedIn();
 
@@ -32,12 +33,11 @@ export default function SigninPage() {
       });
       localStorage.setItem("token", res.data.access_token);
 
+      await refetchUser();
+
       toast.success("Successfully signed in");
-      setShowAnimation(true);
-      // Redirect to dashboard after animation completes (4 seconds)
-      setTimeout(() => {
-        router.push('/dashboard');
-      }, 5000);
+      router.push('/dashboard');
+
     } catch (error: any) {
       const msg = error.response?.data?.detail || error.message || "Signin failed. Please try again.";
       setError(msg);
@@ -52,26 +52,16 @@ export default function SigninPage() {
       });
       localStorage.setItem("token", res.data.access_token);
 
+      await refetchUser()
+
       toast.success("Signed in with Google successfully!");
-      setShowAnimation(true);
-      // Redirect to dashboard after animation completes (4 seconds)
-      setTimeout(() => {
-        router.push('/dashboard');
-      }, 8000);
+      router.push('/dashboard');
     } catch (error: any) {
       const msg = error.response?.data?.detail || error.message || "Google Login Failed. Please try again.";
       setError(msg);
       toast.error(msg);
     }
   };
-
-  if (showAnimation) {
-    return (
-      <div className="bg-gradient-to-br from-emerald-100 via-white to-purple-100 dark:bg-gradient-to-br dark:from-emerald-900 dark:to-purple-900">
-        <ProcedureAnimation />
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-gradient-to-br from-emerald-100 via-white to-purple-100 dark:bg-gradient-to-br dark:from-emerald-950 dark:via-black/10 dark:to-purple-950/60">

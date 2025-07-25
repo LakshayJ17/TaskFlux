@@ -3,36 +3,29 @@
 import { useAuthIfNotLoggedIn } from "@/hooks/useAuthIfNotLoggedIn";
 import React, { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
-import {
-    IconArrowLeft,
-    IconBrandTabler,
-    IconSettings,
-    IconUserBolt,
-} from "@tabler/icons-react";
+import { IconArrowLeft, IconBrandTabler, IconSettings, IconUserBolt } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
-import { logoutCurrentUser } from "@/utils/logoutUser";
-import { useRouter } from "next/navigation";
 import { LoaderFour } from "@/components/ui/loader";
+import { useAuth } from "@/context/AuthContext";
 import Image from "next/image";
 import { Plus } from "lucide-react";
 
 
 export default function UserLayout({ children }: { children: React.ReactNode }) {
     const { user, loading, error } = useAuthIfNotLoggedIn();
+    const { logout } = useAuth();
     const [open, setOpen] = useState(false);
-    const router = useRouter();
 
     if (loading) return (
-      <div className="flex items-center justify-center min-h-[200px] w-full">
-        <LoaderFour />
-      </div>
+        <div className="flex items-center justify-center min-h-[200px] w-full">
+            <LoaderFour />
+        </div>
     );
     if (error) return <div>Error loading user</div>;
     if (!user) return null;
 
     const handleLogout = () => {
-        logoutCurrentUser();
-        router.push('/');
+        logout();
     };
 
     const links = [
@@ -65,6 +58,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
             ),
         },
     ];
+
     return (
         <div
             className={cn(
@@ -106,7 +100,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
                                     referrerPolicy="no-referrer"
                                     alt="Profile"
                                     className="h-7 w-7 rounded-full object-cover border-2 border-purple-400 mb-1"
-                                    
+
                                 />
                             ) : (
                                 <div className="h-7 w-7 rounded-full bg-purple-700 flex justify-center items-center text-white font-bold text-lg border-2 border-purple-400 mb-1"
@@ -124,10 +118,14 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
                 </SidebarBody>
             </Sidebar>
 
-            <div className="flex-1">
+            <div className="w-full h-full">
                 {children}
             </div>
+            {/* <div>
+                <div>
+                    {children}
+                </div>
+            </div> */}
         </div>
-
     )
 }

@@ -5,13 +5,14 @@ import { LogOutIcon, User2Icon } from "lucide-react"
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { logoutCurrentUser } from "@/utils/logoutUser";
 import { Separator } from "../ui/separator";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useAuth } from "@/context/AuthContext"; // Add this import
 import Image from "next/image";
 
 export default function Header() {
     const { user } = useCurrentUser();
+    const { logout } = useAuth(); // Add this line
     const router = useRouter();
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const dropdownRef = useRef<HTMLDivElement>(null)
@@ -33,13 +34,17 @@ export default function Header() {
         }
     }, [dropdownOpen])
 
+    const handleLogout = () => {
+        setDropdownOpen(false);
+        logout(); // Use context logout instead of logoutCurrentUser
+    };
+
     return (
         <header className="w-full h-20 flex justify-center items-center border-b-gray-400 bg-white sticky top-0 z-50 px-3 md:px-6 py-5 min-w-full dark:bg-black dark:border-b-gray-900">
             <div className="w-full flex items-center justify-between">
                 <Link href={user ? '/dashboard' : '/'} className="flex items-center gap-x-3">
                     <Image width={50} height={50} className="rounded-lg" src="/taskflux-logo.png" alt="TaskFlux Logo" />
-                    <div
-                        className="text-xl sm:text-3xl font-bold bg-gradient-to-r from-emerald-600 to-violet-600 bg-clip-text text-transparent">
+                    <div className="text-xl sm:text-3xl font-bold bg-gradient-to-r from-emerald-600 to-violet-600 bg-clip-text text-transparent">
                         TASKFLUX
                     </div>
                 </Link>
@@ -109,11 +114,8 @@ export default function Header() {
                                         <Button
                                             className="cursor-pointer gap-3"
                                             variant={"ghost"}
-                                            onClick={() => {
-                                                setDropdownOpen(false)
-                                                logoutCurrentUser()
-                                            }
-                                            }>
+                                            onClick={handleLogout} // Updated this line
+                                        >
                                             <LogOutIcon />
                                             Logout
                                         </Button>

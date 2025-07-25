@@ -1,6 +1,8 @@
+"use client"
+import WorkflowBuilder from "@/components/Workflow/WorkflowBuilder";
 import { useAuthIfNotLoggedIn } from "@/hooks/useAuthIfNotLoggedIn";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
 export default function ManualWorkflow(){
     const params = useParams()
@@ -10,18 +12,18 @@ export default function ManualWorkflow(){
     const [isNewWorkflow, setIsNewWorkflow] = useState(true)
     const [isLoading, setIsLoading] = useState(true)
 
-    useEffect(() => {
-        const checkExistingWorkflow = async () => {
-            try {
-                const token = localStorage.getItem("token")
+    // useEffect(() => {
+    //     const checkExistingWorkflow = async () => {
+    //         try {
+    //             const token = localStorage.getItem("token")
                 
-            } catch (error) {
+    //         } catch (error) {
                 
-            }
-        }
-    }, [])
+    //         }
+    //     }
+    // }, [])
 
     return (
-        <WorkflowBuilder
+        <WorkflowBuilder />
     )
 }

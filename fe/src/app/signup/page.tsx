@@ -11,6 +11,7 @@ import ProcedureAnimation from "@/components/AuthAnimation/procedure-animation";
 import { useRedirectIfLoggedIn } from "@/hooks/useRedirectIfLoggedIn";
 import { Button } from "@/components/ui/stateful-button";
 import GLBViewer from "@/components/GLBViewer";
+import { useAuth } from "@/context/AuthContext";
 
 export default function SignupPage() {
   const [firstName, setFirstName] = useState("");
@@ -21,9 +22,8 @@ export default function SignupPage() {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [showAnimation, setShowAnimation] = useState(false);
   const router = useRouter();
-
+  const { refetchUser } = useAuth()
 
   useRedirectIfLoggedIn()
 
@@ -50,14 +50,10 @@ export default function SignupPage() {
         password,
       });
       localStorage.setItem("token", res.data.access_token);
+      await refetchUser();
 
       toast.success(`Welcome, ${firstName}! Your account was created successfully`);
-
-      setShowAnimation(true);
-      // Redirect to dashboard after animation completes (4 seconds)
-      setTimeout(() => {
-        router.push('/dashboard');
-      }, 5000);
+      router.push('/dashboard');
     } catch (error: any) {
       const msg = error.response?.data?.detail || error.message || "Signup failed. Please try again.";
       setError(msg);
@@ -72,13 +68,10 @@ export default function SignupPage() {
       });
 
       localStorage.setItem("token", res.data.access_token);
+      await refetchUser()
 
       toast.success("Signed up with Google successfully!");
-      setShowAnimation(true);
-      // Redirect to dashboard after animation completes (4 seconds)
-      setTimeout(() => {
-        router.push('/dashboard');
-      }, 10000);
+      router.push('/dashboard');
     } catch (error: any) {
       const msg = error.response?.data?.detail || error.message || "Google signup failed. Please try again.";
       setError(msg);
@@ -86,13 +79,6 @@ export default function SignupPage() {
     }
   };
 
-  if (showAnimation) {
-    return (
-      <div className="bg-gradient-to-br from-emerald-100 via-white to-purple-100 dark:bg-gradient-to-br dark:from-emerald-950 dark:via-black/10 dark:to-purple-950/60">
-        <ProcedureAnimation />
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row items-center bg-gradient-to-br from-emerald-100 via-white to-purple-100 dark:bg-gradient-to-br dark:from-emerald-950 dark:via-black/10 dark:to-purple-950/60">
@@ -200,7 +186,7 @@ export default function SignupPage() {
             </div>
             <Button className="w-full mt-5 bg-gradient-to-br from-purple-400/90 via-purple-700/90 to-purple-600/90 hover:from-purple-400 hover:via-purple-700 hover:to-purple-600 text-white hover:ring-purple-700 dark:bg-gradient-to-br dark:from-emerald-400/90 dark:via-emerald-700/90 dark:to-emerald-600/90 dark:hover:from-emerald-400 dark:hover:via-emerald-700 dark:hover:to-emerald-600 dark:hover:ring-emerald-700" type="submit">Sign Up</Button>
           </form>
-          
+
           <div className="flex items-center my-6">
             <div className="flex-grow border-t border-emerald-700 dark:border-purple-700"></div>
             <span className="mx-4 text-emerald-800 dark:text-purple-200">Or continue with</span>
