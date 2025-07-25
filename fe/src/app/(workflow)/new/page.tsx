@@ -79,7 +79,7 @@ export default function New() {
                                 <div className="flex justify-between">
                                     <p className="text-white">Free Plan</p>
                                     <Badge className="bg-purple-500 py-1.5 text-white w-26 text-center">
-                                        {2 - user.manual_workflow_count}{(2 - user.manual_workflow_count) === 1 ? <p>workflow left</p> : <p>workflows left</p>}
+                                        {2 - user.manual_workflow_count} {(2 - user.manual_workflow_count) === 1 ? "workflow left" : "workflows left"}
                                     </Badge>
                                 </div>
                                 {/* <div className="flex justify-between">

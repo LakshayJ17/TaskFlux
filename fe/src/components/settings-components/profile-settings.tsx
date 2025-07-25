@@ -3,6 +3,7 @@ import { User2 } from "lucide-react";
 import { Button } from "../ui/button";
 import axios from "axios";
 import { toast } from "sonner";
+import { useAuth } from "@/context/AuthContext";
 
 interface UserInterface {
     firstName: string;
@@ -15,7 +16,7 @@ export default function ProfileSettings({ user }: { user: UserInterface }) {
     const [firstName, setFirstName] = useState(user.firstName)
     const [lastName, setLastName] = useState(user.lastName)
     const [email, setEmail] = useState(user.email)
-
+    const {refetchUser} = useAuth()
 
     const handleSaveChanges = async () => {
         const token = localStorage.getItem("token")
@@ -47,7 +48,9 @@ export default function ProfileSettings({ user }: { user: UserInterface }) {
                         "Content-Type": "application/json"
                     },
 
-                })
+                }
+            )
+            await refetchUser()
 
             toast.success("Profile updated successfully")
         } catch (error) {

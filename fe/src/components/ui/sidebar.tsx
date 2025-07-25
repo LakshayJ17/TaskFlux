@@ -4,6 +4,7 @@ import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 interface Links {
   label: string;
@@ -171,7 +172,6 @@ export const SidebarLink = ({
     "flex items-center justify-start gap-2 group/sidebar py-2 w-full text-left rounded transition-colors duration-200 hover:bg-emerald-200 dark:hover:bg-emerald-800";
 
   if (link.onClick) {
-    // Render as button for actions like logout
     return (
       <button
         type="button"
@@ -197,9 +197,8 @@ export const SidebarLink = ({
     );
   }
 
-  // Default: render as link
   return (
-    <a
+    <Link
       href={link.href}
       className={cn(
         baseLinkClasses,
@@ -218,6 +217,6 @@ export const SidebarLink = ({
       >
         {link.label}
       </motion.span>
-    </a>
+    </Link>
   );
 };
