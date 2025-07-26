@@ -7,8 +7,8 @@ import jwt
 import os
 from dotenv import load_dotenv
 from bson import ObjectId
-from .db import get_mongo_db
-from .schemas.UserSchemas import UserCreate, UserLogin, UserResponse, UpdateUserSchema
+from ..db.db import get_mongo_db
+from ..schemas.UserSchemas import UserCreate, UserLogin, UserResponse, UpdateUserSchema
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
 

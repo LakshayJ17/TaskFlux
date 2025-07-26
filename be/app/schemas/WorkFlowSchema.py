@@ -7,7 +7,9 @@ class WorkflowType(str, Enum):
     MANUAL = "manual"
     AI = "ai"
 
-class WorkflowStatus(str, Enum)
+class WorkflowStatus(str, Enum):
+    pass
+
 class Node(BaseModel):
     id: str
     type: str
@@ -17,6 +19,7 @@ class Node(BaseModel):
 class Edge(BaseModel):
     source: str
     target: str
+    condition : Optional[str] = None
 
 
 class WorkflowSchema(BaseModel):
@@ -27,6 +30,7 @@ class WorkflowSchema(BaseModel):
     updated_at : Optional[datetime] = None
     nodes: List[Node]
     edges : List[Edge]
+    config: Dict[str, Any]
     is_active : bool = True
 
 

@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Body
 from fastapi.middleware.cors import CORSMiddleware
-from .auth import router as auth_router
-from .workflow import router as workflow_router
+from .auth.auth import router as auth_router
+from .workflow.workflow import router as workflow_router
 from contextlib import asynccontextmanager
-from .db import connect_to_mongo, close_mongo_connection
+from .db.db import connect_to_mongo, close_mongo_connection
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -15,7 +15,7 @@ app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Only allow your frontend in dev
+    allow_origins=["http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
