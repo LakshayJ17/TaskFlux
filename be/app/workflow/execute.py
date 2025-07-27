@@ -18,6 +18,9 @@ def build_graph(workflow_json, state_type):
     def make_node(node_func, config):
         return lambda state: node_func(state, config)
 
+    if not nodes or not nodes[0]["type"].endswith("trigger"):
+        print("Warning : First node sjould be trigger node")
+
     for node in nodes:
         graph_builder.add_node(
             node["id"],
@@ -40,6 +43,33 @@ def build_graph(workflow_json, state_type):
 
 def execute_workflow(workflow_json, initial_state):
     state_type = STATE_REGISTRY["taskflux_state"]
+    trigger = workflow_json.get("trigger")
+    nodes = workflow_json.get("nodes", [])
+
+    if trigger:
+        trigger_type = trigger.get("type")
+        trigger_config = trigger.get("config", {})
+        print(f"Trigger type : {trigger_type}")
+
+        if trigger_type == "manual_trigger":
+            graph = build_graph(workflow_json, state_type)
+            result = graph.invoke(initial_state)
+            return result
+        elif trigger_type == "webhook_trigger":
+            graph = build_graph(workflow_json,state_type)
+            result = graph.invoke(initial_state)
+            return result
+        elif trigger_type == "schedule_trigger":
+            print("Schedule trigger detected. You need to implement scheduling logic here.")
+            graph = build_graph(workflow_json, state_type)
+            result = graph.invoke(initial_state)
+            return result
+
+        # TODO: Add triggers
+
+        else:
+            raise ValueError(f"Unknown trigger type: {trigger_type}")
+
     graph = build_graph(workflow_json, state_type)
     result = graph.invoke(initial_state)
     return result
