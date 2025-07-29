@@ -1,20 +1,27 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "next-themes";
 import { AuthProvider } from "@/context/AuthContext";
+import { Poppins } from "next/font/google";
+import { Nunito } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
+import { Montserrat } from "next/font/google";
+const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '700'] });
+const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], weight: ['400', '700'] });
+const nunito = Nunito({ subsets: ['latin'], weight: ['400', '700'] });
+import { Lato } from "next/font/google";
+import { IBM_Plex_Sans } from "next/font/google";
+const ibmPlexSans = IBM_Plex_Sans({ subsets: ['latin'], weight: ['400', '700'] });
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const lato = Lato({ subsets: ['latin'], weight: ['400', '700'] });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: '400'
+})
 
 export const metadata: Metadata = {
   title: "TaskFlux",
@@ -29,9 +36,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${poppins.className} antialiased`}>
         <GoogleOAuthProvider clientId={clientId}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <AuthProvider> 

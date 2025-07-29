@@ -1,29 +1,47 @@
 "use client"
-import WorkflowBuilder from "@/components/Workflow/WorkflowBuilder";
-import { useAuthIfNotLoggedIn } from "@/hooks/useAuthIfNotLoggedIn";
-import { useParams } from "next/navigation";
-// import { useEffect, useState } from "react";
 
-export default function ManualWorkflow(){
-    const params = useParams()
-    const workflowId = params.id as string;
-    const {user, loading, error} = useAuthIfNotLoggedIn();
-    const [workflow, setWorkflow] = useState(null)
-    const [isNewWorkflow, setIsNewWorkflow] = useState(true)
-    const [isLoading, setIsLoading] = useState(true)
+import React, { useState } from "react";
+import WorkflowSidebar from "@/components/Workflow/WorkflowSidebar";
+import WorkFlowCanvas from "@/components/Workflow/WorkFlowCanvas";
 
-    // useEffect(() => {
-    //     const checkExistingWorkflow = async () => {
-    //         try {
-    //             const token = localStorage.getItem("token")
-                
-    //         } catch (error) {
-                
-    //         }
-    //     }
-    // }, [])
+export default function WorkflowBuilder() {
+  const [nodes, setNodes] = useState([]);
+  const [edges, setEdges] = useState([]);
 
-    return (
-        <WorkflowBuilder />
-    )
+
+  // Handle trigger selection
+  const handleTriggerSelect = (trigger) => {
+    if (nodes.length > 0 && nodes[0].type.endsWith("trigger")) return; // Only one trigger
+    setNodes([
+      {
+        id: `trigger-${Date.now()}`,
+        type: trigger.type,
+        data: { label: trigger.label, config: trigger.config || {} },
+        position: { x: 100, y: 100 }
+      },
+      ...nodes
+    ]);
+  };
+
+  // Handle node selection from sidebar
+  const handleNodeSelect = (node) => {
+    setNodes([
+      ...nodes,
+      {
+        id: `${node.type}-${Date.now()}`,
+        type: node.type,
+        data: { label: node.label, config: node.config || {} },
+        position: { x: 200 + nodes.length * 50, y: 200 }
+      }
+    ]);
+  };
+
+  return (
+    <div className="flex h-screen">
+      <WorkflowSidebar onTriggerSelect={handleTriggerSelect} onNodeSelect={handleNodeSelect} />
+      <div className="flex-1">
+        <WorkFlowCanvas nodes={nodes} setNodes={setNodes} edges={edges} setEdges={setEdges} />
+      </div>
+    </div>
+  );
 }

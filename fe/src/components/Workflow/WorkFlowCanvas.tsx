@@ -1,22 +1,17 @@
 "use client"
 
-import React, { useCallback, useState } from 'react';
-import ReactFlow, { addEdge, MiniMap, Controls, Background } from 'reactflow';
-import 'reactflow/dist/style.css';
-import LLMNodeConfig from './LLMNodeConfig';
+import React, { useCallback } from 'react';
+import { ReactFlow, addEdge, applyNodeChanges, applyEdgeChanges, Background } from '@xyflow/react';
+import '@xyflow/react/dist/style.css';
 
-export default function WorkFlowCanvas() {
-  const [nodes, setNodes] = useState([]);
-  const [edges, setEdges] = useState([]);
 
-  const onNodesChange = useCallback((changes) => setNodes((nds) => applyNodeChanges(changes, nds)), []);
-  const onEdgesChange = useCallback((changes) => setEdges((eds) => applyEdgeChanges(changes, eds)), []);
-  const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), []);
-
-  // Render LLMNodeConfig in a custom node, or as a sidebar/modal
+export default function WorkFlowCanvas({ nodes, setNodes, edges, setEdges }) {
+  const onNodesChange = useCallback((changes) => setNodes((nds) => applyNodeChanges(changes, nds)), [setNodes]);
+  const onEdgesChange = useCallback((changes) => setEdges((eds) => applyEdgeChanges(changes, eds)), [setEdges]);
+  const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
 
   return (
-    <div style={{ width: '100vw', height: '90vh' }}>
+    <div className="w-full h-[90vh]">
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -25,11 +20,8 @@ export default function WorkFlowCanvas() {
         onConnect={onConnect}
         fitView
       >
-        <MiniMap />
-        <Controls />
         <Background />
       </ReactFlow>
-      {/* Example: <LLMNodeConfig onConfigChange={...} /> */}
     </div>
   );
 }

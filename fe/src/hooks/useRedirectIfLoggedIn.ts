@@ -2,10 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useCurrentUser } from "./useCurrentUser";
+import { useAuth } from "@/context/AuthContext";
 
 export function useRedirectIfLoggedIn() {
-    const { user, loading, error } = useCurrentUser();
+    const { user, loading, error } = useAuth();
     const router = useRouter();
 
     useEffect(() => {
